@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">North-South</string>
+    <string name="txt_enter">Enter</string>
+    <string name="txt_login">Login</string>
+    <string name="txt_password">Password</string>
+    <string name="enter_btn">Send</string>
+    <string name="txt_lk">lk</string>
+    <string name="toast_error_message">Fill in the fields</string>
+    <string name="login_errer_message">Enter the login</string>
+    <string name="password_errer_message">Enter the password</string>
+    <string name="conection_error_message">Error with connection</string>
+    <string name="not_found_error_message">User not found</string>
+</resources>

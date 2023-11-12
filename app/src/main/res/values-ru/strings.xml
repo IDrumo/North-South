@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">North-South</string>
+    <string name="txt_enter">Вход</string>
+    <string name="txt_login">Логин</string>
+    <string name="txt_password">Пароль</string>
+    <string name="enter_btn">Войти</string>
+    <string name="txt_lk">Личный Кабинет</string>
+    <string name="toast_error_message">Заполните поля</string>
+    <string name="login_errer_message">Введите логин</string>
+    <string name="password_errer_message">Введите пароль</string>
+    <string name="conection_error_message">Ошибка с соединением</string>
+    <string name="not_found_error_message">Пользователь не найден</string>
+</resources>
