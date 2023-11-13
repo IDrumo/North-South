@@ -14,6 +14,8 @@ class AccountMenu : AppCompatActivity() {
 
         val login = intent.getStringExtra("login")
         val password = intent.getStringExtra("password")
+        val role = intent.getStringExtra("role")
+        val token = intent.getStringExtra("token")
         binding.textView2.text = "login = ${login} \n password = ${password}"
     }
 }
