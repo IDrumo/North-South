@@ -11,4 +11,7 @@
     <string name="password_errer_message">Введите пароль</string>
     <string name="conection_error_message">Ошибка с соединением</string>
     <string name="not_found_error_message">Пользователь не найден</string>
+    <string name="account">Аккаунт</string>
+    <string name="qr_scanner">Сканнер</string>
+    <string name="roadmap">Маршрут</string>
 </resources>

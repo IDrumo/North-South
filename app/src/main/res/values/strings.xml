@@ -10,5 +10,8 @@
     <string name="password_errer_message">Enter the password</string>
     <string name="conection_error_message">Error with connection</string>
     <string name="not_found_error_message">User not found</string>
-    <string name="base_url" translatable="false">https://spacekot.ru/apishechka/</string>
+    <string name="base_url" translatable="false">http://194.35.119.103/apishechka/</string>
+    <string name="account">Account</string>
+    <string name="qr_scanner">Scanner</string>
+    <string name="roadmap">Path</string>
 </resources>
