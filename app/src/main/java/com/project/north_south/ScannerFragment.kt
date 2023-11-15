@@ -1,11 +1,14 @@
 package com.project.north_south
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import me.dm7.barcodescanner.zbar.Result
 import me.dm7.barcodescanner.zbar.ZBarScannerView
 
@@ -26,6 +29,19 @@ class ScannerFragment : Fragment(), ZBarScannerView.ResultHandler {
         super.onViewCreated(view, savedInstanceState)
         scanner = view.findViewById(R.id.zbarScannerView)
         scanner.setResultHandler(this)
+
+        val btn1 = view.findViewById<Button>(R.id.button2)
+        val btn2 = view.findViewById<Button>(R.id.button3)
+        btn1.setOnClickListener{
+            val imageSuccess: View = view.findViewById(R.id.imageSuccess)
+            animatingView(imageSuccess)
+        }
+
+        btn2.setOnClickListener{
+            val imageCancel: View = view.findViewById(R.id.imageCancell)
+            animatingView(imageCancel)
+        }
+
     }
 
     override fun onResume() {
@@ -52,5 +68,13 @@ class ScannerFragment : Fragment(), ZBarScannerView.ResultHandler {
         Log.d("MyLog", "cool")
 
         scanner.resumeCameraPreview(this)
+    }
+
+    private fun animatingView(view: View){
+        // Объединение анимаций в AnimatorSet
+        val animatorSet = AnimatorSet()
+        animatorSet.playSequentially(ObjectAnimator.ofFloat(view, "alpha", 0f, 1f).setDuration(1000),
+            ObjectAnimator.ofFloat(view, "alpha", 1f, 0f).setDuration(1000))
+        animatorSet.start()
     }
 }
