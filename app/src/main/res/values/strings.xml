@@ -14,4 +14,11 @@
     <string name="account">Account</string>
     <string name="qr_scanner">Scanner</string>
     <string name="roadmap">Path</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="patronymic">Patronymic</string>
+    <string name="bus_code">The bus code</string>
+    <string name="driver_status">Status (Active/Turned off)</string>
+    <string name="save_account_change">Save</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>

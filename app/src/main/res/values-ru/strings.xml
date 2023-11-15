@@ -14,4 +14,10 @@
     <string name="account">Аккаунт</string>
     <string name="qr_scanner">Сканнер</string>
     <string name="roadmap">Маршрут</string>
+    <string name="first_name">Имя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="patronymic">Отчество</string>
+    <string name="bus_code">Код автобуса</string>
+    <string name="driver_status">Состояние (Активен/Не активен)</string>
+    <string name="save_account_change">Сохранить</string>
 </resources>
