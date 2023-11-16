@@ -1,13 +1,17 @@
 package com.project.north_south
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 
 class RoadmapFragment : Fragment() {
+
+    private lateinit var adapter: RoadmapAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +23,14 @@ class RoadmapFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_roadmap, container, false)
+        val rootView =  inflater.inflate(R.layout.fragment_roadmap, container, false)
+        val rcView = rootView.findViewById<RecyclerView>(R.id.rcView)
+
+        adapter = RoadmapAdapter()
+        rcView.layoutManager = LinearLayoutManager(this)
+        rcView.adapter = adapter
+
+        return rootView
     }
 
     companion object {
@@ -27,4 +38,6 @@ class RoadmapFragment : Fragment() {
         fun newInstance() =
             RoadmapFragment()
     }
+
+
 }

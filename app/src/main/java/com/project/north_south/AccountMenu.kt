@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.project.north_south.databinding.ActivityAccountMenuBinding
 import com.project.north_south.databinding.ActivityLoginPageBinding
 import models.FullUserInfo
@@ -18,6 +19,8 @@ class AccountMenu : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAccountMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        AndroidThreeTen.init(this)
 
         val user = FullUserInfo(intent)
 

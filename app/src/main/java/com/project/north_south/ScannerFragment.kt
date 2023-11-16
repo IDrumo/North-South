@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieDrawable
 import me.dm7.barcodescanner.zbar.Result
 import me.dm7.barcodescanner.zbar.ZBarScannerView
 
@@ -33,13 +35,17 @@ class ScannerFragment : Fragment(), ZBarScannerView.ResultHandler {
         val btn1 = view.findViewById<Button>(R.id.button2)
         val btn2 = view.findViewById<Button>(R.id.button3)
         btn1.setOnClickListener{
-            val imageSuccess: View = view.findViewById(R.id.imageSuccess)
-            animatingView(imageSuccess)
+            doSuccessAnimate(R.id.success_anim)
+
+//            val anim = view.findViewById<LottieAnimationView>(R.id.success_anim)
+//            anim.speed = 2f
+//            anim.repeatMode = LottieDrawable.REVERSE
+//            anim.repeatCount = 1
+//            anim.playAnimation()
         }
 
         btn2.setOnClickListener{
-            val imageCancel: View = view.findViewById(R.id.imageCancell)
-            animatingView(imageCancel)
+            doSuccessAnimate(R.id.cancel_anim)
         }
 
     }
@@ -70,11 +76,11 @@ class ScannerFragment : Fragment(), ZBarScannerView.ResultHandler {
         scanner.resumeCameraPreview(this)
     }
 
-    private fun animatingView(view: View){
-        // Объединение анимаций в AnimatorSet
-        val animatorSet = AnimatorSet()
-        animatorSet.playSequentially(ObjectAnimator.ofFloat(view, "alpha", 0f, 1f).setDuration(1000),
-            ObjectAnimator.ofFloat(view, "alpha", 1f, 0f).setDuration(1000))
-        animatorSet.start()
+    private fun doSuccessAnimate(id: Int){
+        val anim = view?.findViewById<LottieAnimationView>(id)
+        anim?.speed = 2f
+        anim?.repeatMode = LottieDrawable.REVERSE
+        anim?.repeatCount = 1
+        anim?.playAnimation()
     }
 }

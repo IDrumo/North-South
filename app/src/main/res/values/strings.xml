@@ -20,5 +20,6 @@
     <string name="bus_code">The bus code</string>
     <string name="driver_status">Status (Active/Turned off)</string>
     <string name="save_account_change">Save</string>
+    <string name="time_demo" translatable="false">00:00</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
