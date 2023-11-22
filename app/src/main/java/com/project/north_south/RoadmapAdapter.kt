@@ -12,14 +12,17 @@ import com.project.north_south.databinding.TripListItemBinding
 import models.TripItem
 import java.time.format.DateTimeFormatter
 
-class RoadmapAdapter: ListAdapter<TripItem, RoadmapAdapter.ItemHolder>(ItemComparator()) {
+class RoadmapAdapter(private val listener: Listener): ListAdapter<TripItem, RoadmapAdapter.ItemHolder>(ItemComparator()) {
 
     class ItemHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = TripListItemBinding.bind(view)
 
-        fun setData(item: TripItem) = with(binding){
+        fun setData(item: TripItem, listener: Listener) = with(binding){
             time.text = item.time_start
             destination.text = item.stations[0].name
+            itemView.setOnClickListener{
+                listener.onClick(item)
+            }
         }
         companion object{
             fun  create(parent: ViewGroup) :ItemHolder{
@@ -43,6 +46,12 @@ class RoadmapAdapter: ListAdapter<TripItem, RoadmapAdapter.ItemHolder>(ItemCompa
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position))
+        holder.setData(getItem(position), listener)
+    }
+
+    interface Listener{
+        fun onClick(item: TripItem){
+
+        }
     }
 }

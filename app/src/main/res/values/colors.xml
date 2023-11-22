@@ -10,4 +10,7 @@
     <color name="login_btn_color">#6F808D</color>
     <color name="login_field_color">#ECECED</color>
     <color name="login_field_color_contrast">#A7A9AD</color>
+    <color name="dust_orange">#E4D397</color>
+    <color name="dust_green">#ABE497</color>
+    <color name="dust_rad">#EC9797</color>
 </resources>

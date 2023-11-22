@@ -20,4 +20,11 @@
     <string name="bus_code">Код автобуса</string>
     <string name="driver_status">Состояние (Активен/Не активен)</string>
     <string name="save_account_change">Сохранить</string>
+    <string name="server_error_message">Ошибка на стороне сервера</string>
+    <string name="request_error_message">Не удалось получить нужные данные у сервера</string>
+    <string name="first_station">Название первой станции</string>
+    <string name="previous_segment">Предыдущий сегмент</string>
+    <string name="next_segment">Следующий сегмент</string>
+    <string name="start_trip">Начать поездку</string>
+    <string name="end_trip">Закончить поездку</string>
 </resources>

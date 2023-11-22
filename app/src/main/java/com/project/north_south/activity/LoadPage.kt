@@ -1,10 +1,9 @@
-package com.project.north_south
+package com.project.north_south.activity
 
 import android.app.ActivityOptions
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.animation.AnimationUtils
 import com.project.north_south.databinding.ActivityLoadPageBinding
 
 class LoadPage : AppCompatActivity() {

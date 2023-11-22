@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AccountFragment">
+    tools:context=".fragments.AccountFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
+        android:id="@+id/liner_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
@@ -17,35 +18,28 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/first_name"
             style="@style/text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/text_field_background"
-            android:fontFamily="@font/montserrat"
             android:text="@string/first_name" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/last_name"
             style="@style/text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/text_field_background"
-            android:fontFamily="@font/montserrat"
-            android:gravity="left|center_vertical"
-            android:paddingStart="10dp"
             android:text="@string/last_name" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/patronymic"
             style="@style/text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/patronymic" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/bus_code"
             style="@style/text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

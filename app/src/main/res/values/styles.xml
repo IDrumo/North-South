@@ -24,7 +24,7 @@
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:paddingLeft">10dp</item>
-        <item name="android:gravity">center_vertical||left</item>
+        <item name="android:gravity">center_vertical|left</item>
         <item name="android:textColor">@color/default_btn_text_color</item>
         <item name="android:backgroundTint">@color/default_btn_color</item>
         <item name="android:background">@drawable/text_field_background</item>

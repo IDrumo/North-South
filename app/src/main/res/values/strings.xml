@@ -21,5 +21,12 @@
     <string name="driver_status">Status (Active/Turned off)</string>
     <string name="save_account_change">Save</string>
     <string name="time_demo" translatable="false">00:00</string>
+    <string name="server_error_message">Server-side error</string>
+    <string name="request_error_message">Could not get the necessary data from the server</string>
+    <string name="first_station">The name of the first station.</string>
+    <string name="previous_segment">Previous Segment</string>
+    <string name="next_segment">Next Segment</string>
+    <string name="start_trip">Start Trip</string>
+    <string name="end_trip">End Trip</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

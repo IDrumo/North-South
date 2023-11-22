@@ -42,8 +42,8 @@ android {
 dependencies {
     implementation("me.dm7.barcodescanner:zbar:1.9.8")
     implementation("com.airbnb.android:lottie:6.1.0")
-    implementation ("org.threeten:threetenbp:1.4.0")
-    implementation ("com.jakewharton.threetenabp:threetenabp:1.2.4")
+//    implementation ("org.threeten:threetenbp:1.4.0")
+//    implementation ("com.jakewharton.threetenabp:threetenabp:1.2.4")
 
 
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
