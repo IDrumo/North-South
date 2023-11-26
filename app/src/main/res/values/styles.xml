@@ -15,7 +15,7 @@
     </style>
     <style name="enter_btn" parent="Widget.AppCompat.Button">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/default_btn_text_color</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:backgroundTint">@color/default_btn_color</item>
         <item name="background">@drawable/login_enter</item>
     </style>
@@ -28,5 +28,8 @@
         <item name="android:textColor">@color/default_btn_text_color</item>
         <item name="android:backgroundTint">@color/default_btn_color</item>
         <item name="android:background">@drawable/text_field_background</item>
+    </style>
+    <style name="popup_window">
+        <item name="background">@drawable/popup_window</item>
     </style>
 </resources>

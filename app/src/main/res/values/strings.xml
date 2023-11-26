@@ -28,5 +28,18 @@
     <string name="next_segment">Next Segment</string>
     <string name="start_trip">Start Trip</string>
     <string name="end_trip">End Trip</string>
+    <string name="txt_reload">Reload</string>
+    <string name="txt_exit">Logout</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="txt_bus_flight_number">Bus flight number</string>
+    <string name="txt_seat_number">Seat number</string>
+    <string name="txt_ticket_code">Ticket Code</string>
+    <string name="txt_chek_the_tiket">Check the ticket</string>
+    <string name="ticket_error">Сannot confirm the authenticity of the ticket</string>
+    <string name="ticket_success">The ticket has been successfully verified</string>
+    <string name="check_ticket_button">Check the ticket manually</string>
+    <string name="qr_param_1" translatable="false">flight_id</string>
+    <string name="qr_param_2" translatable="false">place_id</string>
+    <string name="qr_param_3" translatable="false">code</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

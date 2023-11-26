@@ -1,5 +1,6 @@
 package com.project.north_south.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,23 +20,14 @@ class LoginPage : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
+        viewModel.tryEnterAuto()
+
         binding.loginButton.setOnClickListener {
-            val login = binding.loginField.editText?.text.toString().trim()
-            val password = binding.passwordField.editText?.text.toString()
-
-            if (login == "" || password == "") {
-                if (login == "") binding.loginField.error = getString(R.string.login_errer_message)
-                if (password == "") binding.passwordField.error =
-                    getString(R.string.password_errer_message)
-                Toast.makeText(this, R.string.toast_error_message, Toast.LENGTH_SHORT).show()
-            } else {
-                viewModel.loginUser(login, password)
-            }
-
-            viewModel.loginResponse.observe(this) { intent ->
-                startActivity(intent)
-                finish()
-            }
+            viewModel.tryEnter(binding)
+        }
+        viewModel.startAccountMenuEvent.observe(this) {
+            startActivity(Intent(this, AccountMenu::class.java))
+            finish()
         }
     }
 }

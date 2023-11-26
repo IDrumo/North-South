@@ -1,6 +1,5 @@
 package com.project.north_south.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -10,25 +9,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.snackbar.Snackbar
 import com.project.north_south.R
+import com.project.north_south.ViewModels.ScannerFragmentViewModel
+import com.project.north_south.ViewModels.TicketFragmentViewModel
+import com.project.north_south.databinding.FragmentScannerBinding
 import me.dm7.barcodescanner.zbar.Result
 import me.dm7.barcodescanner.zbar.ZBarScannerView
 
 class ScannerFragment : Fragment(), ZBarScannerView.ResultHandler {
 
     private lateinit var scanner: ZBarScannerView
+    private lateinit var binding: FragmentScannerBinding
+    private lateinit var scannerFragmentViewModel: ScannerFragmentViewModel
+    private lateinit var ticketFragmentViewModel: TicketFragmentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        return inflater.inflate(R.layout.fragment_scanner, container, false)
+    ): View {
+        binding = FragmentScannerBinding.inflate(layoutInflater)
+        scannerFragmentViewModel = ViewModelProvider(this)[ScannerFragmentViewModel::class.java]
+        ticketFragmentViewModel = ViewModelProvider(this)[TicketFragmentViewModel::class.java]
+        return binding.root
     }
 
 
@@ -37,19 +44,31 @@ class ScannerFragment : Fragment(), ZBarScannerView.ResultHandler {
         scanner = view.findViewById(R.id.zbarScannerView)
         scanner.setResultHandler(this)
 
-        val btn1 = view.findViewById<Button>(R.id.button2)
-        val btn2 = view.findViewById<Button>(R.id.button3)
-        btn1.setOnClickListener{
-            doSuccessAnimate(R.id.success_anim)
+//        val btn1 = view.findViewById<Button>(R.id.button2)
+//        val btn2 = view.findViewById<Button>(R.id.button3)
+        binding.supportButton.setOnClickListener{
+            scannerFragmentViewModel.openSupport(binding, childFragmentManager)
         }
 
-        btn2.setOnClickListener{
-            doSuccessAnimate(R.id.cancel_anim)
-            val snackbar = Snackbar.make(view, "Это билет на рейс ${null} в ${null}", 10000)
-            val textView = snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
-            snackbar.show()
+        scannerFragmentViewModel.ticketDate.observe(requireActivity()){
+            scannerFragmentViewModel.savePassengerInfo(it)
         }
+        ticketFragmentViewModel.ticketDate.observe(requireActivity()){
+            scannerFragmentViewModel.savePassengerInfo(it)
+        }
+
+
+//        btn1.setOnClickListener{
+//            doAnimate(R.id.success_anim)
+//        }
+
+//        btn2.setOnClickListener{
+//            doAnimate(R.id.cancel_anim)
+//            val snackbar = Snackbar.make(view, "Это билет на рейс ${null} в ${null}", 7000)
+//            val textView = snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+//            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+//            snackbar.show()
+//        }
 
     }
 
@@ -69,21 +88,7 @@ class ScannerFragment : Fragment(), ZBarScannerView.ResultHandler {
     }
 
     override fun handleResult(result: Result?) {
-        TODO("В result?.contents Придет то, что лежит в QR коде. Осталось сверить это " +
-                "со списком данных, который придет в этот фрейм с Intent, после удачной проверки" +
-                "запустить анимацию одобрения, после нудачной - отклонения. " +
-                "В конце вызвать scanner.resumeCameraPreview(this), чтобы запустить скан следующего кода")
-
-        Log.d("MyLog", "cool")
-
+        scannerFragmentViewModel.checkQR(result?.contents, requireView())
         scanner.resumeCameraPreview(this)
-    }
-
-    private fun doSuccessAnimate(id: Int){
-        val anim = view?.findViewById<LottieAnimationView>(id)
-        anim?.speed = 2f
-        anim?.repeatMode = LottieDrawable.REVERSE
-        anim?.repeatCount = 1
-        anim?.playAnimation()
     }
 }

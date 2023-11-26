@@ -3,8 +3,10 @@ package com.project.north_south.activity
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.project.north_south.R
+import com.project.north_south.ViewModels.AccountFragmentViewModel
 import com.project.north_south.ViewModels.AccountViewModel
 import com.project.north_south.ViewModels.AccountViewModelFactory
 import com.project.north_south.databinding.ActivityAccountMenuBinding
@@ -16,6 +18,7 @@ class AccountMenu : AppCompatActivity() {
     private var tripList: ArrayList<TripItem>? = null
     private var user: FullUserInfo? = null
     private lateinit var mainViewModel: AccountViewModel
+    private lateinit var accountViewModel: AccountFragmentViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,10 +27,7 @@ class AccountMenu : AppCompatActivity() {
 
         val factory = AccountViewModelFactory(this, supportFragmentManager)
         mainViewModel = ViewModelProvider(this, factory)[AccountViewModel::class.java]
-
-        user = FullUserInfo(intent)
-        tripList = mainViewModel.initData()
-
+        accountViewModel = ViewModelProvider(this)[AccountFragmentViewModel::class.java]
 
         mainViewModel.launchAccountFrame()
 

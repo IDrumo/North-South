@@ -6,6 +6,8 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.service.autofill.UserData
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -21,9 +23,11 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.project.north_south.R
 import com.project.north_south.activity.AccountMenu
+import com.project.north_south.databinding.ActivityAccountMenuBinding
 import com.project.north_south.fragments.AccountFragment
 import com.project.north_south.fragments.RoadmapFragment
 import com.project.north_south.fragments.ScannerFragment
+import models.FullUserInfo
 import models.ScheduleResponse
 import models.TripItem
 import models.UserLoginRequest
@@ -37,7 +41,7 @@ class AccountViewModel(
     private val activity: AppCompatActivity,
     private val fragmentManager: FragmentManager
 ) : ViewModel() {
-    val loginResponse: MutableLiveData<Intent> = MutableLiveData()
+    val userData: MutableLiveData<FullUserInfo> = MutableLiveData()
 
     fun launchAccountFrame() {
         fragmentManager.beginTransaction()

@@ -27,4 +27,13 @@
     <string name="next_segment">Следующий сегмент</string>
     <string name="start_trip">Начать поездку</string>
     <string name="end_trip">Закончить поездку</string>
+    <string name="txt_reload">Перезагрузить</string>
+    <string name="txt_exit">Выйти</string>
+    <string name="txt_bus_flight_number">Номер автобусного рейса</string>
+    <string name="txt_seat_number">Номер места</string>
+    <string name="txt_ticket_code">Код Билета</string>
+    <string name="txt_chek_the_tiket">Проверить билет</string>
+    <string name="ticket_error">Не удается подтвердить подлинность билета</string>
+    <string name="ticket_success">Билет успешно прошел проверку</string>
+    <string name="check_ticket_button">Проверить билет вручную</string>
 </resources>

@@ -44,15 +44,15 @@ class RoadmapFragment : Fragment(), RoadmapAdapter.Listener {
         val rootView =  inflater.inflate(R.layout.fragment_roadmap, container, false)
         val rcView = rootView.findViewById<RecyclerView>(R.id.rcView)
 
-        val data = arguments?.getSerializable("key") as ArrayList<TripItem>
+        val data = arguments?.getSerializable("key") as? ArrayList<TripItem>
 
-        adapter = RoadmapAdapter(this)
-        rcView.layoutManager = LinearLayoutManager(requireContext())
-        rcView.adapter = adapter
+        if (!data.isNullOrEmpty()) {
+            adapter = RoadmapAdapter(this)
+            rcView.layoutManager = LinearLayoutManager(requireContext())
+            rcView.adapter = adapter
 
-        adapter.submitList(data)
-
-
+            adapter.submitList(data)
+        }
 
         return rootView
     }
@@ -65,6 +65,10 @@ class RoadmapFragment : Fragment(), RoadmapAdapter.Listener {
             args.putSerializable("key", data)
             fragment.arguments = args
             return fragment
+        }
+        @JvmStatic
+        fun newEmptyInstance(): RoadmapFragment {
+            return RoadmapFragment()
         }
     }
 

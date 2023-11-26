@@ -44,6 +44,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bus_code" />
+
+        <Button
+            android:id="@+id/reloadButton"
+            style="@style/text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/txt_reload"
+            android:textColor="@color/default_btn_color" />
+
+        <Button
+            android:id="@+id/exitButton"
+            style="@style/text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/txt_exit"
+            android:textColor="@color/default_btn_color" />
     </LinearLayout>
 
 </FrameLayout>
