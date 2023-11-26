@@ -44,8 +44,7 @@ class ScannerFragment : Fragment(), ZBarScannerView.ResultHandler {
         scanner = view.findViewById(R.id.zbarScannerView)
         scanner.setResultHandler(this)
 
-//        val btn1 = view.findViewById<Button>(R.id.button2)
-//        val btn2 = view.findViewById<Button>(R.id.button3)
+
         binding.supportButton.setOnClickListener{
             scannerFragmentViewModel.openSupport(binding, childFragmentManager)
         }
@@ -56,19 +55,6 @@ class ScannerFragment : Fragment(), ZBarScannerView.ResultHandler {
         ticketFragmentViewModel.ticketDate.observe(requireActivity()){
             scannerFragmentViewModel.savePassengerInfo(it)
         }
-
-
-//        btn1.setOnClickListener{
-//            doAnimate(R.id.success_anim)
-//        }
-
-//        btn2.setOnClickListener{
-//            doAnimate(R.id.cancel_anim)
-//            val snackbar = Snackbar.make(view, "Это билет на рейс ${null} в ${null}", 7000)
-//            val textView = snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-//            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
-//            snackbar.show()
-//        }
 
     }
 
