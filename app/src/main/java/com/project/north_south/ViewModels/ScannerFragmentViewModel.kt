@@ -67,6 +67,7 @@ class ScannerFragmentViewModel(context: Application): AndroidViewModel(context) 
 
         if (calculateSHA256("${ticket.flight_number}${ticket.seat_number}") == ticket.code_number && data.isNullOrEmpty()){
             doAnimate(view, R.id.success_anim)
+            ticketDate.value = ticket.seat_number
         }else{
             doAnimate(view, R.id.cancel_anim)
             val snackbar = Snackbar.make(view, "Это билет на рейс ${ticket.flight_number} в ${ticket.time_start}", 7000)

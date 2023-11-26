@@ -24,7 +24,7 @@
             android:ems="10"
             android:gravity="center"
             android:hint="@string/txt_bus_flight_number"
-            android:inputType="text" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/placeNumber"
@@ -37,7 +37,7 @@
             android:ems="10"
             android:gravity="center"
             android:hint="@string/txt_seat_number"
-            android:inputType="text" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/codeNumber"
@@ -50,7 +50,7 @@
             android:ems="10"
             android:gravity="center"
             android:hint="@string/txt_ticket_code"
-            android:inputType="text" />
+            android:inputType="text|textCapCharacters" />
 
         <Button
             android:id="@+id/checkButton"
