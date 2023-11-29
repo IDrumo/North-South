@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import com.project.north_south.ViewModels.AccountFragmentViewModel
+import com.project.north_south.viewModels.AccountFragmentViewModel
 import com.project.north_south.activity.LoginPage
 import com.project.north_south.databinding.FragmentAccountBinding
 import models.FullUserInfo

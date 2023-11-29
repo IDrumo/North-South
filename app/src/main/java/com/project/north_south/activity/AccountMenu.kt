@@ -3,20 +3,15 @@ package com.project.north_south.activity
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.project.north_south.R
-import com.project.north_south.ViewModels.AccountFragmentViewModel
-import com.project.north_south.ViewModels.AccountViewModel
-import com.project.north_south.ViewModels.AccountViewModelFactory
+import com.project.north_south.viewModels.AccountFragmentViewModel
+import com.project.north_south.viewModels.AccountViewModel
+import com.project.north_south.viewModels.AccountViewModelFactory
 import com.project.north_south.databinding.ActivityAccountMenuBinding
-import models.FullUserInfo
-import models.TripItem
 
 class AccountMenu : AppCompatActivity() {
     private lateinit var binding: ActivityAccountMenuBinding
-    private var tripList: ArrayList<TripItem>? = null
-    private var user: FullUserInfo? = null
     private lateinit var mainViewModel: AccountViewModel
     private lateinit var accountViewModel: AccountFragmentViewModel
 
@@ -38,7 +33,7 @@ class AccountMenu : AppCompatActivity() {
                 }
 
                 R.id.roadmap -> {
-                    mainViewModel.launchRoadmapFrame(tripList)
+                    mainViewModel.launchRoadmapFrame()
                 }
 
                 R.id.qr_scanner -> {
@@ -47,6 +42,11 @@ class AccountMenu : AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mainViewModel.clearData()
     }
 
     override fun onRequestPermissionsResult(

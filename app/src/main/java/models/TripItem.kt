@@ -9,6 +9,6 @@ data class TripItem(
     var time_start: String,
     var time_finish: String,
     var stations: ArrayList<Station>,
-    var station_index: Int = -1,
+    var station_index: Int = 0,
     var bus: Bus
 ) : Serializable

@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.project.north_south.R
-import com.project.north_south.ViewModels.TicketFragmentViewModel
+import com.project.north_south.viewModels.TicketFragmentViewModel
 import com.project.north_south.databinding.FragmentTicketBinding
 
 class TicketFragment : Fragment() {

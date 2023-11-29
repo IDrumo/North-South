@@ -41,5 +41,8 @@
     <string name="qr_param_1" translatable="false">flight_id</string>
     <string name="qr_param_2" translatable="false">place_id</string>
     <string name="qr_param_3" translatable="false">code</string>
+    <string name="cancel">Cancel</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

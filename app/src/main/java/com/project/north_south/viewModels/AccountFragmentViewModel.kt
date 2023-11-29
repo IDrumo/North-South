@@ -1,10 +1,8 @@
-package com.project.north_south.ViewModels
+package com.project.north_south.viewModels
 
 import android.app.Application
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.project.north_south.R

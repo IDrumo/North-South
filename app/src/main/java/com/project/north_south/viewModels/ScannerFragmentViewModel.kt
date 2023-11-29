@@ -1,26 +1,24 @@
-package com.project.north_south.ViewModels
+package com.project.north_south.viewModels
 
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.project.north_south.R
 import com.project.north_south.databinding.FragmentScannerBinding
 import com.project.north_south.fragments.TicketFragment
+import com.project.north_south.subAlgorithms.calculateSHA256
+import com.project.north_south.subAlgorithms.doAnimate
 import models.Ticket
 import java.lang.reflect.Type
-import java.security.MessageDigest
 
 
 class ScannerFragmentViewModel(context: Application): AndroidViewModel(context) {
@@ -77,24 +75,5 @@ class ScannerFragmentViewModel(context: Application): AndroidViewModel(context) 
         }
     }
 
-    fun calculateSHA256(text: String): String {
-        val messageDigest = MessageDigest.getInstance("SHA-256")
-        val bytes = messageDigest.digest(text.toByteArray())
 
-        // Преобразование байтового массива в строку шестнадцатеричного представления
-        val stringBuilder = StringBuilder()
-        for (byte in bytes) {
-            stringBuilder.append(String.format("%02x", byte))
-        }
-
-        return stringBuilder.toString()
-    }
-
-    private fun doAnimate(view: View, id: Int){
-        val anim = view.findViewById<LottieAnimationView>(id)
-        anim?.speed = 2f
-        anim?.repeatMode = LottieDrawable.REVERSE
-        anim?.repeatCount = 1
-        anim?.playAnimation()
-    }
 }

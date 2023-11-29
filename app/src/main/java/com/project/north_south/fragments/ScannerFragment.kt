@@ -1,21 +1,14 @@
 package com.project.north_south.fragments
 
 import android.os.Bundle
-import android.util.Log
-import android.util.TypedValue
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.LottieDrawable
-import com.google.android.material.snackbar.Snackbar
 import com.project.north_south.R
-import com.project.north_south.ViewModels.ScannerFragmentViewModel
-import com.project.north_south.ViewModels.TicketFragmentViewModel
+import com.project.north_south.viewModels.ScannerFragmentViewModel
+import com.project.north_south.viewModels.TicketFragmentViewModel
 import com.project.north_south.databinding.FragmentScannerBinding
 import me.dm7.barcodescanner.zbar.Result
 import me.dm7.barcodescanner.zbar.ZBarScannerView

@@ -1,7 +1,5 @@
-package com.project.north_south.ViewModels
+package com.project.north_south.viewModels
 
-import android.app.Activity
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel

@@ -1,19 +1,15 @@
-package com.project.north_south.ViewModels
+package com.project.north_south.viewModels
 
 import android.app.Application
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Handler
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.project.north_south.R
 import com.project.north_south.databinding.ActivityLoginPageBinding
 import network.InitAPI
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 
 
 class LoginViewModel(val context: Application) : AndroidViewModel(context) {

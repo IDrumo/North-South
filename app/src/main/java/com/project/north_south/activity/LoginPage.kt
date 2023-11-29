@@ -2,11 +2,9 @@ package com.project.north_south.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.project.north_south.R
-import com.project.north_south.ViewModels.LoginViewModel
+import com.project.north_south.viewModels.LoginViewModel
 import com.project.north_south.databinding.ActivityLoginPageBinding
 
 class LoginPage : AppCompatActivity() {

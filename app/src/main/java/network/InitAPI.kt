@@ -48,22 +48,29 @@ class InitAPI(url: String) {
                         editor.putString("patronymic", response.body()?.data?.patronymic)
                         editor.apply()
                     } else {
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.not_found_error_message),
-                            Toast.LENGTH_LONG
-                        ).show()
+                        not_found_error(context)
                     }
 
                 }
 
                 override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                    Toast.makeText(
-                        context,
-                        context.getString(R.string.conection_error_message),
-                        Toast.LENGTH_LONG
-                    ).show()
+                    connection_error(context)
                 }
             })
+    }
+
+    fun connection_error(context: Context){
+        Toast.makeText(
+            context,
+            context.getString(R.string.conection_error_message),
+            Toast.LENGTH_LONG
+        ).show()
+    }
+    fun not_found_error(context: Context){
+        Toast.makeText(
+            context,
+            context.getString(R.string.not_found_error_message),
+            Toast.LENGTH_LONG
+        ).show()
     }
 }

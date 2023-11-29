@@ -1,17 +1,15 @@
-package com.project.north_south.ViewModels
+package com.project.north_south.viewModels
 
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.snackbar.Snackbar
 import com.project.north_south.R
 import com.project.north_south.databinding.FragmentTicketBinding
-import java.security.MessageDigest
-import kotlin.text.toIntOrNull
+import com.project.north_south.subAlgorithms.calculateSHA256
+import com.project.north_south.subAlgorithms.doAnimate
 
 class TicketFragmentViewModel: ViewModel() {
     val ticketDate: MutableLiveData<Int> = MutableLiveData()
@@ -31,26 +29,5 @@ class TicketFragmentViewModel: ViewModel() {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
             snackbar.show()
         }
-    }
-
-    fun calculateSHA256(text: String): String {
-        val messageDigest = MessageDigest.getInstance("SHA-256")
-        val bytes = messageDigest.digest(text.toByteArray())
-
-        // Преобразование байтового массива в строку шестнадцатеричного представления
-        val stringBuilder = StringBuilder()
-        for (byte in bytes) {
-            stringBuilder.append(String.format("%02x", byte))
-        }
-
-        return stringBuilder.toString()
-    }
-
-    private fun doAnimate(view: View, id: Int){
-        val anim = view.findViewById<LottieAnimationView>(id)
-        anim?.speed = 2f
-        anim?.repeatMode = LottieDrawable.REVERSE
-        anim?.repeatCount = 1
-        anim?.playAnimation()
     }
 }

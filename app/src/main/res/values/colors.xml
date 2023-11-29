@@ -12,5 +12,5 @@
     <color name="login_field_color_contrast">#A7A9AD</color>
     <color name="dust_orange">#E4D397</color>
     <color name="dust_green">#ABE497</color>
-    <color name="dust_rad">#EC9797</color>
+    <color name="dust_red">#EC9797</color>
 </resources>
