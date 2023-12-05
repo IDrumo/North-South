@@ -1,27 +1,29 @@
 package com.project.north_south.viewModels
 
 import android.Manifest
+import android.app.Activity
+import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import com.project.north_south.R
 import com.project.north_south.fragments.AccountFragment
 import com.project.north_south.fragments.RoadmapFragment
 import com.project.north_south.fragments.ScannerFragment
 import com.project.north_south.fragments.TripFragment
+import com.project.north_south.subAlgorithms.Storage
 
-class AccountViewModel(
-    private val activity: AppCompatActivity,
-    private val fragmentManager: FragmentManager
-) : ViewModel() {
-//    val userData: MutableLiveData<FullUserInfo> = MutableLiveData()
-    private val sharedTrip: SharedPreferences = activity.getSharedPreferences("trip_info", Context.MODE_PRIVATE)
-    private val sharedRoadmap: SharedPreferences = activity.getSharedPreferences("roadmap_info", Context.MODE_PRIVATE)
+class AccountViewModel(context: Application) : AndroidViewModel(context) {
+
+    private val storage = Storage(context)
+    private lateinit var fragmentManager: FragmentManager
+
+    fun initFragmentManager(supportFragmentManager: FragmentManager) {
+        fragmentManager = supportFragmentManager
+    }
 
     fun launchAccountFrame() {
         fragmentManager.beginTransaction()
@@ -30,7 +32,7 @@ class AccountViewModel(
     }
 
     fun launchRoadmapFrame() {
-        if (sharedTrip.getBoolean("sub_frame_part_active", false)) {
+        if (storage.getTripSelectedStatus()) {
             fragmentManager.beginTransaction()
                 .replace(R.id.frame_place, TripFragment.newInstance())
                 .commit()
@@ -47,7 +49,7 @@ class AccountViewModel(
             .commit()
     }
 
-    fun checkCameraPermission() {
+    fun checkCameraPermission(activity: Activity) {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
             == PackageManager.PERMISSION_GRANTED
         ) {
@@ -58,42 +60,7 @@ class AccountViewModel(
     }
 
     fun clearData(){
-        sharedTrip.edit().clear().apply()
+        storage.clearTrip()
     }
-
-
-//    fun initData(): ArrayList<TripItem>? {
-//        val api = InitAPI(activity.getString(R.string.base_url)).getAPI()
-//
-//        var list: ArrayList<TripItem>? = null
-//
-//        val response = api.getAllSchedule()
-//            .enqueue(object : Callback<ScheduleResponse> {
-//                override fun onResponse(
-//                    call: Call<ScheduleResponse>,
-//                    response: Response<ScheduleResponse>
-//                ) {
-//                    if (response.isSuccessful) {
-//                        list = response.body()?.scheduleList
-//                    } else {
-//                        Toast.makeText(
-//                            activity,
-//                            activity.getString(R.string.request_error_message),
-//                            Toast.LENGTH_LONG
-//                        ).show()
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<ScheduleResponse>, t: Throwable) {
-//                    Toast.makeText(
-//                        activity,
-//                        activity.getString(R.string.server_error_message),
-//                        Toast.LENGTH_LONG
-//                    ).show()
-//                }
-//
-//            })
-//        return list
-//    }
 
 }

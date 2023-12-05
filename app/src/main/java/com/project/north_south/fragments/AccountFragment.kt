@@ -17,7 +17,6 @@ import models.FullUserInfo
 class AccountFragment : Fragment() {
     lateinit var binding: FragmentAccountBinding
     private lateinit var mainViewModel: AccountFragmentViewModel
-    val userData: MutableLiveData<FullUserInfo> = MutableLiveData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

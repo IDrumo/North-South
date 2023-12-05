@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.project.north_south.R
 import com.project.north_south.RoadmapAdapter
 import com.project.north_south.databinding.FragmentRoadmapBinding
+import com.project.north_south.subAlgorithms.Storage
 import com.project.north_south.viewModels.RoadmapFragmentViewModel
 import models.TripItem
 
@@ -40,7 +41,7 @@ class RoadmapFragment : Fragment(), RoadmapAdapter.Listener {
     }
 
     override fun onClick(item: TripItem) {
-        roadmapFragmentViewModel.setTrip(item)
+        Storage(requireContext()).setTrip(item)
         childFragmentManager.beginTransaction()
             .replace(R.id.frame_place, TripFragment.newInstance())
             .commit()

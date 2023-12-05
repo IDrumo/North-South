@@ -37,4 +37,5 @@
     <string name="ticket_success">Билет успешно прошел проверку</string>
     <string name="check_ticket_button">Проверить билет вручную</string>
     <string name="cancel">Отменить</string>
+    <string name="txt_tiket_id">Номер билета</string>
 </resources>

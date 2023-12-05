@@ -3,6 +3,7 @@ package network
 import models.ApiResponse
 import models.ScheduleResponse
 import models.UserLoginRequest
+import models.UserLoginResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -13,7 +14,7 @@ interface ApiService {
 //    suspend fun getUser(@Path("token") token: String): Call<>
 
     @POST("login")
-    fun loginUser(@Body user: UserLoginRequest): Call<ApiResponse>
+    fun loginUser(@Body user: UserLoginRequest): Call<UserLoginResponse>
 
     @GET("schedule")
     fun getAllSchedule(): Call<ScheduleResponse>

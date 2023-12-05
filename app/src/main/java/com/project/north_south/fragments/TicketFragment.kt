@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.project.north_south.viewModels.TicketFragmentViewModel
 import com.project.north_south.databinding.FragmentTicketBinding
+import com.project.north_south.subAlgorithms.Storage
 
 class TicketFragment : Fragment() {
     private lateinit var binding: FragmentTicketBinding
@@ -30,6 +31,13 @@ class TicketFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        ticketViewModel.ticketDate.observe(requireActivity()){
+            Storage(requireContext()).savePassengerInfo(it)
+        }
     }
 
     companion object {

@@ -1,6 +1,7 @@
 package com.project.north_south.fragments
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,14 +40,14 @@ class ScannerFragment : Fragment(), ZBarScannerView.ResultHandler {
 
 
         binding.supportButton.setOnClickListener{
-            scannerFragmentViewModel.openSupport(binding, childFragmentManager)
+            scannerFragmentViewModel.openSupport(childFragmentManager)
         }
 
         scannerFragmentViewModel.ticketDate.observe(requireActivity()){
-            scannerFragmentViewModel.savePassengerInfo(it)
+            scannerFragmentViewModel.savePassenger(it)
         }
         ticketFragmentViewModel.ticketDate.observe(requireActivity()){
-            scannerFragmentViewModel.savePassengerInfo(it)
+            scannerFragmentViewModel.savePassenger(it)
         }
 
     }
@@ -68,6 +69,10 @@ class ScannerFragment : Fragment(), ZBarScannerView.ResultHandler {
 
     override fun handleResult(result: Result?) {
         scannerFragmentViewModel.checkQR(result?.contents, requireView())
-        scanner.resumeCameraPreview(this)
+//        scanner.resumeCameraPreview(this)
+
+        Handler().postDelayed({
+            scanner.resumeCameraPreview(this)
+        }, 2000L)
     }
 }

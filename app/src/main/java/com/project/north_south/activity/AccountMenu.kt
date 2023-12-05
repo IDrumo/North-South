@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.project.north_south.R
 import com.project.north_south.viewModels.AccountFragmentViewModel
 import com.project.north_south.viewModels.AccountViewModel
-import com.project.north_south.viewModels.AccountViewModelFactory
 import com.project.north_south.databinding.ActivityAccountMenuBinding
+import com.project.north_south.subAlgorithms.Storage
 
 class AccountMenu : AppCompatActivity() {
     private lateinit var binding: ActivityAccountMenuBinding
@@ -20,8 +20,8 @@ class AccountMenu : AppCompatActivity() {
         binding = ActivityAccountMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val factory = AccountViewModelFactory(this, supportFragmentManager)
-        mainViewModel = ViewModelProvider(this, factory)[AccountViewModel::class.java]
+        mainViewModel = ViewModelProvider(this)[AccountViewModel::class.java]
+        mainViewModel.initFragmentManager(supportFragmentManager)
         accountViewModel = ViewModelProvider(this)[AccountFragmentViewModel::class.java]
 
         mainViewModel.launchAccountFrame()
@@ -37,7 +37,7 @@ class AccountMenu : AppCompatActivity() {
                 }
 
                 R.id.qr_scanner -> {
-                    mainViewModel.checkCameraPermission()
+                    mainViewModel.checkCameraPermission(this)
                 }
             }
             true
@@ -46,6 +46,8 @@ class AccountMenu : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        val storage = Storage(this)
+        storage.clearCurrentData()
         mainViewModel.clearData()
     }
 

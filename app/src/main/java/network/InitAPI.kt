@@ -1,11 +1,11 @@
 package network
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.widget.Toast
 import com.project.north_south.R
-import models.ApiResponse
+import com.project.north_south.subAlgorithms.ErrorMessage
+import com.project.north_south.subAlgorithms.Storage
 import models.UserLoginRequest
+import models.UserLoginResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -26,51 +26,30 @@ class InitAPI(url: String) {
     fun getAPI(): ApiService {
         return this.api
     }
-    fun loginUser(context: Context, login: String, password: String) {
+    fun loginUser (login: String, password: String, context: Context) {
         val api = InitAPI(context.getString(R.string.base_url)).getAPI()
-        val sharedPreferences: SharedPreferences = context.getSharedPreferences("user_data", Context.MODE_PRIVATE)
+
+        val error = ErrorMessage(context)
 
         api.loginUser(UserLoginRequest(login, password))
-            .enqueue(object : Callback<ApiResponse> {
+            .enqueue(object : Callback<UserLoginResponse> {
                 override fun onResponse(
-                    call: Call<ApiResponse>,
-                    response: Response<ApiResponse>
+                    call: Call<UserLoginResponse>,
+                    response: Response<UserLoginResponse>
                 ) {
                     if (response.isSuccessful) {
-                        val editor = sharedPreferences.edit()
-                        editor.putBoolean("active", true)
-                        editor.putString("login", login)
-                        editor.putString("password", password)
-                        editor.putString("token", response.body()?.data?.token)
-                        editor.putString("role", response.body()?.data?.role)
-                        editor.putString("first_name", response.body()?.data?.first_name)
-                        editor.putString("last_name", response.body()?.data?.last_name)
-                        editor.putString("patronymic", response.body()?.data?.patronymic)
-                        editor.apply()
+                        Storage(context).saveUserInfo(login, password, response.body())
                     } else {
-                        not_found_error(context)
+                        error.not_found_error()
                     }
 
                 }
 
-                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                    connection_error(context)
+                override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
+                    error.connection_error()
                 }
             })
     }
 
-    fun connection_error(context: Context){
-        Toast.makeText(
-            context,
-            context.getString(R.string.conection_error_message),
-            Toast.LENGTH_LONG
-        ).show()
-    }
-    fun not_found_error(context: Context){
-        Toast.makeText(
-            context,
-            context.getString(R.string.not_found_error_message),
-            Toast.LENGTH_LONG
-        ).show()
-    }
+
 }
