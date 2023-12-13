@@ -1,6 +1,7 @@
 package com.project.north_south.viewModels
 
 import android.app.Application
+import android.content.Context
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
@@ -11,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.project.north_south.R
 import com.project.north_south.fragments.TicketFragment
+import com.project.north_south.subAlgorithms.Snack
 import com.project.north_south.subAlgorithms.Storage
 import com.project.north_south.subAlgorithms.calculateSHA256
 import com.project.north_south.subAlgorithms.doAnimate
@@ -21,8 +23,13 @@ import java.util.Locale
 class ScannerFragmentViewModel(context: Application): AndroidViewModel(context) {
     private var ticketFragment: TicketFragment? = null
     val ticketDate: MutableLiveData<Long> = MutableLiveData()
-    private val storage = Storage(context)
+    private lateinit var storage: Storage
+    private lateinit var snack: Snack
 
+    fun init(context: Context, view: View){
+        storage = Storage(context)
+        snack = Snack(context, view)
+    }
     fun openSupport(fragmentManager: FragmentManager){
         if (ticketFragment == null) {
             ticketFragment = TicketFragment.newInstance()
@@ -41,22 +48,27 @@ class ScannerFragmentViewModel(context: Application): AndroidViewModel(context) 
         storage.savePassengerInfo(ticketId)
     }
 
-    fun checkQR(data: String?, view: View){
+    fun checkQR(data: String?){
 
         val gson = Gson()
         val ticket = gson.fromJson(data, Ticket::class.java)
 
+        if (storage.getTrip().id.toInt() == 0){
+            snack.no_flight_selected()
+            return
+        }
+
         if (calculateSHA256("${ticket.ticket_id} ${ticket.flight_number} ${ticket.seat_number}") ==
             ticket.code_number.lowercase(Locale.ROOT) && !data.isNullOrEmpty()){
-            doAnimate(view, R.id.success_anim)
-            ticketDate.value = ticket.ticket_id
-        }else{
-            doAnimate(view, R.id.cancel_anim)
-            val snackbar = Snackbar.make(view, "Это билет на рейс ${ticket.flight_number} в ${ticket.time_start}", 7000)
-            val textView = snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
-            snackbar.show()
+            if (ticket.flight_number == storage.getTrip().id){
+                ticketDate.value = ticket.ticket_id
+                return
+            }
+            snack.an_outdated_ticket(ticket.flight_number, ticket.time_start, storage.getTrip().id)
+            return
         }
+        snack.the_ticket_is_invalid()
+        return
     }
 
 

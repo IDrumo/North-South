@@ -46,5 +46,11 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="txt_tiket_id">Ticket number</string>
     <string name="save_success_message">The save was successful</string>
+    <string name="ticket_error_message_1">Select a flight in the Route tab</string>
+    <string name="ticket_error_message_2.1">"This is a ticket for another flight with the number "</string>
+    <string name="ticket_error_message_2.2">" at"</string>
+    <string name="ticket_error_message_2.3">" is currently selected flight with the number "</string>
+    <string name="ticket_error_message_3">The ticket is not valid</string>
+    <string name="flight_error">There is a hare on the flight</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

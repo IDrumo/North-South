@@ -1,6 +1,7 @@
 package network
 
 import android.content.Context
+import android.util.Log
 import com.project.north_south.R
 import com.project.north_south.subAlgorithms.ErrorMessage
 import com.project.north_south.subAlgorithms.Storage
@@ -106,15 +107,11 @@ class InitAPI() {
 
         api.passengerControl(request)
             .enqueue(object : Callback<Void> {
-                override fun onResponse(
-                    call: Call<Void>,
-                    response: Response<Void>
-                ) {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         callback.onSuccess()
-                        //TODO
                     } else {
-                        callback.onError(response.message())
+                        callback.onError(response.body().toString())
                     }
                 }
 

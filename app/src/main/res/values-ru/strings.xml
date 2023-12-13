@@ -39,4 +39,10 @@
     <string name="cancel">Отменить</string>
     <string name="txt_tiket_id">Номер билета</string>
     <string name="save_success_message">Сохранение прошло успешно</string>
+    <string name="ticket_error_message_1">Выберете рейс во вкладке Маршрут</string>
+    <string name="ticket_error_message_2.1">"Это билет на другой рейс с номером "</string>
+    <string name="ticket_error_message_2.2">" в "</string>
+    <string name="ticket_error_message_2.3">" сейчас выбран рейс "</string>
+    <string name="ticket_error_message_3">Билет не валиден</string>
+    <string name="flight_error">На рейсе заяц</string>
 </resources>

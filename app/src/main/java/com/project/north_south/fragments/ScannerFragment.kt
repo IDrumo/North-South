@@ -11,6 +11,7 @@ import com.project.north_south.R
 import com.project.north_south.viewModels.ScannerFragmentViewModel
 import com.project.north_south.viewModels.TicketFragmentViewModel
 import com.project.north_south.databinding.FragmentScannerBinding
+import com.project.north_south.subAlgorithms.doAnimate
 import me.dm7.barcodescanner.zbar.Result
 import me.dm7.barcodescanner.zbar.ZBarScannerView
 
@@ -38,15 +39,18 @@ class ScannerFragment : Fragment(), ZBarScannerView.ResultHandler {
         scanner = view.findViewById(R.id.zbarScannerView)
         scanner.setResultHandler(this)
 
+        scannerFragmentViewModel.init(requireContext(), requireView())
 
         binding.supportButton.setOnClickListener{
             scannerFragmentViewModel.openSupport(childFragmentManager)
         }
 
         scannerFragmentViewModel.ticketDate.observe(requireActivity()){
+            doAnimate(view, R.id.success_anim)
             scannerFragmentViewModel.savePassenger(it)
         }
         ticketFragmentViewModel.ticketDate.observe(requireActivity()){
+            doAnimate(view, R.id.success_anim)
             scannerFragmentViewModel.savePassenger(it)
         }
 
@@ -68,7 +72,8 @@ class ScannerFragment : Fragment(), ZBarScannerView.ResultHandler {
     }
 
     override fun handleResult(result: Result?) {
-        scannerFragmentViewModel.checkQR(result?.contents, requireView())
+
+        scannerFragmentViewModel.checkQR(result?.contents)
 //        scanner.resumeCameraPreview(this)
 
         Handler().postDelayed({

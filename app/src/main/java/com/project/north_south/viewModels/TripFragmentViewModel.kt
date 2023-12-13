@@ -1,6 +1,7 @@
 package com.project.north_south.viewModels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.project.north_south.R
 import com.project.north_south.databinding.FragmentTripBinding
@@ -58,6 +59,7 @@ class TripFragmentViewModel(val context: Application) : AndroidViewModel(context
     fun startStop(stopwatchViewModel: StopwatchViewModel) {
         if (storage.tripStarted()) {
             storage.switchTripState()
+            storage.addTime((storage.getTrip().station_index), stopwatchViewModel.getCurrentTimeLong())
             stopwatchViewModel.stop()
             shareInfo()
             tripBinding.startStopButton.setBackgroundColor(context.getColor(R.color.dust_green))
@@ -78,14 +80,16 @@ class TripFragmentViewModel(val context: Application) : AndroidViewModel(context
             }
 
             override fun onError(e: String) {
-                error.custom_error(e)
+                error.custom_error(context.getString(R.string.flight_error))
+//                Log.d("MyLog", "Ошибка с данными")
             }
 
             override fun onFailure(e: Throwable) {
-                error.custom_error(e.message.toString())
+                error.connection_error()
+//                Log.d("MyLog", "Ошибка с На сервере")
             }
         })
-        storage.clearTripInfo()
+        storage.clearTripData()
     }
 
     fun clearShare() {

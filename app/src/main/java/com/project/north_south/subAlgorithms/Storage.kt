@@ -30,6 +30,11 @@ class Storage(context: Context) {
         roadmap.edit().clear().apply()
     }
 
+    fun clearTripData(){
+        tripStarted.edit().clear().apply()
+        tripTime.edit().clear().apply()
+        passengers.edit().clear().apply()
+    }
     fun clearTripInfo(){
         trip.edit().clear().apply()
         tripStarted.edit().clear().apply()
