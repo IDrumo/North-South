@@ -67,8 +67,7 @@ class Storage(context: Context) {
             gson.fromJson(json, TripItem::class.java)
         else
             TripItem()
-        return 0
-        //TODO
+        return trip.place_number
     }
 
     fun getTrip(): TripItem {
@@ -92,9 +91,20 @@ class Storage(context: Context) {
         val gson = Gson()
         val json = tripTime.getString("data", null)
         val type: Type = object : TypeToken<ArrayList<Long?>?>() {}.type
-        val timeData = gson.fromJson<ArrayList<Long>>(json, type) ?: arrayListOf()
+        var timeData = gson.fromJson<ArrayList<Long>>(json, type)
+        if (timeData.isNullOrEmpty()) {
+            timeData = ArrayList<Long>(getStationNumber() - 1).apply {
+                repeat(getStationNumber() - 1) {
+                    add(0)
+                }
+            }
+        }
         timeData[index] = time
         tripTime.edit().putString("data", gson.toJson(timeData)).apply()
+    }
+
+    fun rollBackTime(){
+
     }
 
     fun getTimeResult(): ArrayList<Long> {
@@ -105,31 +115,60 @@ class Storage(context: Context) {
         return timeData
     }
 
+    fun getStationNumber(): Int {
+        val gson = Gson()
+        val json = trip.getString("current_trip", null)
+        val tripData = gson.fromJson(json, TripItem::class.java)
+        return tripData.stations.size
+    }
     fun nextStation(): Triple<Int, String, String> {
         val gson = Gson()
-        var json = trip.getString("trip", null)
+        var json = trip.getString("current_trip", null)
         val tripData = gson.fromJson(json, TripItem::class.java)
-        val firstValue = tripData.stations[tripData.station_index++]
-        val secondValue = tripData.stations[tripData.station_index]
 
-        val index = tripData.station_index
-        json = gson.toJson(tripData)
-        trip.edit().putString("trip", json).apply()
-        return Triple(index, firstValue, secondValue)
+        if (tripData.station_index < tripData.stations.size - 2) {
+            val index = ++tripData.station_index
+
+            val firstValue = tripData.stations[tripData.station_index]
+            val secondValue = tripData.stations[tripData.station_index + 1]
+
+            json = gson.toJson(tripData)
+            trip.edit().putString("current_trip", json).apply()
+            return Triple(index, firstValue, secondValue)
+        }else{
+            val index = tripData.station_index
+
+            val firstValue = tripData.stations[tripData.station_index]
+            val secondValue = tripData.stations[tripData.station_index + 1]
+
+            json = gson.toJson(tripData)
+            trip.edit().putString("current_trip", json).apply()
+            return Triple(index, firstValue, secondValue)
+        }
     }
 
     fun previousStation(): Triple<Int, String, String> {
-
-        var json = trip.getString("trip", null)
+        var json = trip.getString("current_trip", null)
         val gson = Gson()
         val data = gson.fromJson(json, TripItem::class.java)
-        val index = --data.station_index - 1
-        val firstValue = data.stations[index]
-        val secondValue = data.stations[data.station_index]
-        json = gson.toJson(data)
-        trip.edit().putString("trip", json).apply()
 
-        return Triple(index, firstValue, secondValue)
+        if (data.station_index > 0) {
+            val index = --data.station_index
+            val firstValue = data.stations[data.station_index]
+            val secondValue = data.stations[data.station_index + 1]
+            json = gson.toJson(data)
+            trip.edit().putString("current_trip", json).apply()
+
+            return Triple(index, firstValue, secondValue)
+        }else{
+            val index = data.station_index
+            val firstValue = data.stations[data.station_index]
+            val secondValue = data.stations[data.station_index + 1]
+            json = gson.toJson(data)
+            trip.edit().putString("current_trip", json).apply()
+
+            return Triple(index, firstValue, secondValue)
+        }
     }
     fun saveUserInfo(login : String, password : String, user: UserLoginResponse?){
         userData.edit()

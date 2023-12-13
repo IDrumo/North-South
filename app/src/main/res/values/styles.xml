@@ -29,6 +29,29 @@
         <item name="android:backgroundTint">@color/default_btn_color</item>
         <item name="android:background">@drawable/text_field_background</item>
     </style>
+    <style name="default_button" parent="Widget.AppCompat.Button">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/text_field_background</item>
+    </style>
+    <style name="action_button" parent="Widget.AppCompat.Button">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/default_btn_text_color</item>
+        <item name="android:drawableTint">@color/dust_green</item>
+        <item name="android:background">@drawable/text_field_background</item>
+    </style>
+    <style name="sub_action_button" parent="Widget.AppCompat.Button">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/default_btn_text_color</item>
+        <item name="android:color">@color/dust_orange</item>
+        <item name="android:background">@drawable/text_field_background</item>
+    </style>
     <style name="popup_window">
         <item name="background">@drawable/popup_window</item>
     </style>
