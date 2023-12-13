@@ -29,6 +29,7 @@ class TripFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         tripFragmentViewModel.initFields(binding)
 
         binding.nextStep.setOnClickListener {
@@ -39,7 +40,7 @@ class TripFragment() : Fragment() {
         }
         binding.cancelButton.setOnClickListener{
             tripFragmentViewModel.clearShare()
-            childFragmentManager.beginTransaction()
+            parentFragmentManager.beginTransaction()
                 .replace(R.id.frame_place, RoadmapFragment.newInstance())
                 .commit()
         }
@@ -50,7 +51,7 @@ class TripFragment() : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        stopwatchViewModel.stop()
+//        stopwatchViewModel.stop()
     }
 
     companion object {

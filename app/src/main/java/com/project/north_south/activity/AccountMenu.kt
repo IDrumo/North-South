@@ -9,11 +9,13 @@ import com.project.north_south.viewModels.AccountFragmentViewModel
 import com.project.north_south.viewModels.AccountViewModel
 import com.project.north_south.databinding.ActivityAccountMenuBinding
 import com.project.north_south.subAlgorithms.Storage
+import com.project.north_south.viewModels.StopwatchViewModel
 
 class AccountMenu : AppCompatActivity() {
     private lateinit var binding: ActivityAccountMenuBinding
     private lateinit var mainViewModel: AccountViewModel
     private lateinit var accountViewModel: AccountFragmentViewModel
+    private lateinit var stopwatchViewModel: StopwatchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +25,8 @@ class AccountMenu : AppCompatActivity() {
         mainViewModel = ViewModelProvider(this)[AccountViewModel::class.java]
         mainViewModel.initFragmentManager(supportFragmentManager)
         accountViewModel = ViewModelProvider(this)[AccountFragmentViewModel::class.java]
+
+        stopwatchViewModel = ViewModelProvider(this)[StopwatchViewModel::class.java]
 
         mainViewModel.launchAccountFrame()
 
@@ -47,8 +51,8 @@ class AccountMenu : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         val storage = Storage(this)
+        stopwatchViewModel.stop()
         storage.clearCurrentData()
-        mainViewModel.clearData()
     }
 
     override fun onRequestPermissionsResult(

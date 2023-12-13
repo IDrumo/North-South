@@ -42,7 +42,7 @@ class RoadmapFragment : Fragment(), RoadmapAdapter.Listener {
 
     override fun onClick(item: TripItem) {
         Storage(requireContext()).setTrip(item)
-        childFragmentManager.beginTransaction()
+        parentFragmentManager.beginTransaction()
             .replace(R.id.frame_place, TripFragment.newInstance())
             .commit()
     }

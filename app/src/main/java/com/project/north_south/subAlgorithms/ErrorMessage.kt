@@ -6,6 +6,13 @@ import com.project.north_south.R
 
 class ErrorMessage(val context: Context) {
 
+    fun custom_error(string: String){
+        Toast.makeText(
+            context,
+            string,
+            Toast.LENGTH_LONG
+        ).show()
+    }
     fun connection_error() {
         Toast.makeText(
             context,
@@ -26,6 +33,14 @@ class ErrorMessage(val context: Context) {
         Toast.makeText(
             context,
             R.string.toast_error_message,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    fun save_success(){
+        Toast.makeText(
+            context,
+            R.string.save_success_message,
             Toast.LENGTH_SHORT
         ).show()
     }

@@ -19,7 +19,7 @@ class RoadmapAdapter(private val listener: Listener): ListAdapter<TripItem, Road
 
         fun setData(item: TripItem, listener: Listener) = with(binding){
             time.text = item.time_start
-            destination.text = item.stations[0].name
+            destination.text = item.stations[0]
             itemView.setOnClickListener{
                 listener.onClick(item)
             }

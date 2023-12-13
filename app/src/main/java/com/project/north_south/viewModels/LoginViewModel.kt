@@ -10,6 +10,7 @@ import com.project.north_south.R
 import com.project.north_south.databinding.ActivityLoginPageBinding
 import com.project.north_south.subAlgorithms.ErrorMessage
 import com.project.north_south.subAlgorithms.Storage
+import models.UserLoginResponse
 import network.InitAPI
 
 
@@ -18,6 +19,7 @@ class LoginViewModel(val context: Application) : AndroidViewModel(context) {
     class StartAccountMenuEvent
 
     private val storage = Storage(context)
+    private val apiService = InitAPI()
 
     fun tryEnterAuto() {
         val (login, password) = storage.getUserLoginPassword()
@@ -43,12 +45,22 @@ class LoginViewModel(val context: Application) : AndroidViewModel(context) {
     }
 
     private fun loginUser(login: String, password: String) {
-        InitAPI(context.getString(R.string.base_url)).loginUser(login, password, context)
-        Handler().postDelayed({
-            if (storage.getUserStatus()) {
-                startAccountMenuEvent.value = StartAccountMenuEvent()
+        apiService.loginUser(login, password, object : InitAPI.LoginCallback {
+            override fun onSuccess(response: UserLoginResponse) {
+                storage.saveUserInfo(login, password, response)
+                if (storage.getUserStatus()) {
+                    startAccountMenuEvent.value = StartAccountMenuEvent()
+                }
             }
-        }, 1000)
+
+            override fun onError() {
+                ErrorMessage(context).not_found_error()
+            }
+
+            override fun onFailure(error: Throwable) {
+                ErrorMessage(context).connection_error()
+            }
+        })
     }
 
 }

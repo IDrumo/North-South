@@ -59,8 +59,4 @@ class AccountViewModel(context: Application) : AndroidViewModel(context) {
         }
     }
 
-    fun clearData(){
-        storage.clearTrip()
-    }
-
 }

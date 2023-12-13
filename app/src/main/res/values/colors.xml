@@ -13,4 +13,5 @@
     <color name="dust_orange">#E4D397</color>
     <color name="dust_green">#ABE497</color>
     <color name="dust_red">#EC9797</color>
+    <color name="invisible">#00000000</color>
 </resources>

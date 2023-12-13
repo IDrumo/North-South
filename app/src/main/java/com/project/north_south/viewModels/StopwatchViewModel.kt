@@ -39,7 +39,13 @@ class StopwatchViewModel : ViewModel() {
         val minutes = (timeInMillis / 1000 / 60) % 60
         val seconds = timeInMillis / 1000 % 60
         val milliseconds = timeInMillis % 1000
-        return String.format("%02d:%02d:%02d.%03d", hours, minutes, seconds, milliseconds)
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds)
+    }
+
+    fun getCurrentTimeLong(): Long {
+        if (time.value == null)
+            return 0
+        return time.value!!
     }
 
     fun stop() {

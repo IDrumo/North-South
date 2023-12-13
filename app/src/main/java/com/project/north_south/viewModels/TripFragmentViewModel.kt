@@ -4,24 +4,33 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.project.north_south.R
 import com.project.north_south.databinding.FragmentTripBinding
+import com.project.north_south.subAlgorithms.ErrorMessage
 import com.project.north_south.subAlgorithms.Storage
+import network.InitAPI
 
-class TripFragmentViewModel(val context: Application): AndroidViewModel(context) {
+class TripFragmentViewModel(val context: Application) : AndroidViewModel(context) {
 
     private val storage = Storage(context)
     private lateinit var tripBinding: FragmentTripBinding
-    fun initFields(binding: FragmentTripBinding){
+    fun initFields(binding: FragmentTripBinding) {
         tripBinding = binding
         val data = storage.getTrip()
 
-        if (data != null) {
-            binding.apply {
-                timeStart.text = data.time_start
-                timeFinish.text = data.time_finish
-                stationStart.text = data.stations[data.station_index++].name
-                stationFinish.text = data.stations[data.station_index].name
-            }
+        binding.apply {
+            timeStart.text = data.time_start
+            timeFinish.text = data.time_finish
+            stationStart.text = data.stations[data.station_index++]
+            stationFinish.text = data.stations[data.station_index]
         }
+
+        if (storage.tripStarted()) {
+            tripBinding.startStopButton.setBackgroundColor(context.getColor(R.color.dust_red))
+            tripBinding.startStopButton.text = context.getString(R.string.end_trip)
+        } else {
+            tripBinding.startStopButton.setBackgroundColor(context.getColor(R.color.dust_green))
+            tripBinding.startStopButton.text = context.getString(R.string.start_trip)
+        }
+
     }
 
     fun nextStep(stopwatchViewModel: StopwatchViewModel) {
@@ -32,14 +41,14 @@ class TripFragmentViewModel(val context: Application): AndroidViewModel(context)
             tripBinding.stationFinish.text = secondValue
 
 
-            val time = stopwatchViewModel.getCurrentTimeString()
+            val time = stopwatchViewModel.getCurrentTimeLong()
             storage.addTime(index, time)
         }
     }
 
     fun previousStep(stopwatchViewModel: StopwatchViewModel) {
         if (storage.tripStarted()) {
-            val time = stopwatchViewModel.getCurrentTimeString()
+            val time = stopwatchViewModel.getCurrentTimeLong()
             val (index, firstValue, secondValue) = storage.previousStation()
             tripBinding.stationStart.text = firstValue
             tripBinding.stationFinish.text = secondValue
@@ -47,13 +56,13 @@ class TripFragmentViewModel(val context: Application): AndroidViewModel(context)
     }
 
     fun startStop(stopwatchViewModel: StopwatchViewModel) {
-        if (storage.tripStarted()){
+        if (storage.tripStarted()) {
             storage.switchTripState()
             stopwatchViewModel.stop()
             shareInfo()
             tripBinding.startStopButton.setBackgroundColor(context.getColor(R.color.dust_green))
             tripBinding.startStopButton.text = context.getString(R.string.start_trip)
-        }else{
+        } else {
             storage.switchTripState()
             stopwatchViewModel.start()
             tripBinding.startStopButton.setBackgroundColor(context.getColor(R.color.dust_red))
@@ -61,15 +70,25 @@ class TripFragmentViewModel(val context: Application): AndroidViewModel(context)
         }
     }
 
-    fun shareInfo(){
-        // отправка
-        val times = storage.getTimeResult()
-        storage.clearTripTime()
-        val passengers = storage.getPassengers()
-        storage.clearPassengers()
+    fun shareInfo() {
+        val error = ErrorMessage(context)
+        InitAPI().sendData(context, object : InitAPI.SaveDataCallback{
+            override fun onSuccess() {
+                error.save_success()
+            }
+
+            override fun onError(e: String) {
+                error.custom_error(e)
+            }
+
+            override fun onFailure(e: Throwable) {
+                error.custom_error(e.message.toString())
+            }
+        })
+        storage.clearTripInfo()
     }
 
-    fun clearShare(){
+    fun clearShare() {
         storage.clearTripInfo()
     }
 }
