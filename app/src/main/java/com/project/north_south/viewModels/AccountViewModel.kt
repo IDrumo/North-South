@@ -1,5 +1,6 @@
 package com.project.north_south.viewModels
 
+import NotificationScheduler
 import android.Manifest
 import android.app.Activity
 import android.app.Application
@@ -23,6 +24,18 @@ class AccountViewModel(context: Application) : AndroidViewModel(context) {
 
     fun initFragmentManager(supportFragmentManager: FragmentManager) {
         fragmentManager = supportFragmentManager
+    }
+
+    fun initNotification(context: Context){
+        val schedule = storage.getRoadmapInfo()
+        val eventTimes : ArrayList<String> = arrayListOf()
+        schedule.forEach { trip->
+            eventTimes.add(trip.trip.departure_time + ":00")
+        }
+
+        val notificationScheduler = NotificationScheduler(context)
+        notificationScheduler.scheduleNotifications(eventTimes)
+
     }
 
     fun launchAccountFrame() {

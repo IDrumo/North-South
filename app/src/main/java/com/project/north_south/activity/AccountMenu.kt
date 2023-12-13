@@ -5,10 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.project.north_south.R
-import com.project.north_south.viewModels.AccountFragmentViewModel
-import com.project.north_south.viewModels.AccountViewModel
 import com.project.north_south.databinding.ActivityAccountMenuBinding
 import com.project.north_south.subAlgorithms.Storage
+import com.project.north_south.viewModels.AccountFragmentViewModel
+import com.project.north_south.viewModels.AccountViewModel
 import com.project.north_south.viewModels.StopwatchViewModel
 
 class AccountMenu : AppCompatActivity() {
@@ -29,6 +29,7 @@ class AccountMenu : AppCompatActivity() {
         stopwatchViewModel = ViewModelProvider(this)[StopwatchViewModel::class.java]
 
         mainViewModel.launchAccountFrame()
+        mainViewModel.initNotification(this)
 
         binding.navigation.setOnItemSelectedListener {
             when (it.itemId) {
