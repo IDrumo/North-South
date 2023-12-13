@@ -1,9 +1,7 @@
 # North-South
 # Название проекта
 
-![Логотип приложения]([путь_к_логотипу.png](https://ylzaporozhskiy.ru/static/media/logoImg.3edfa09db025bc91b9c804e0a3b6bef5.svg))
-
-Описание проекта
+![Логотип приложения](https://ylzaporozhskiy.ru/static/media/logoImg.3edfa09db025bc91b9c804e0a3b6bef5.svg)
 
 ## Описание
 
