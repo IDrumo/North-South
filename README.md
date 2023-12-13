@@ -27,3 +27,9 @@
 
 - Email: email@email.com
 - Телефон: +1234567890
+
+## Дополнительные ссылки:
+
+- [Репозиторий frontend](https://github.com/MsYarusa/SeverUg_frontend)
+- [Репозиторий backend](https://github.com/NDaVS/ATP)
+- [Сайт](https://ylzaporozhskiy.ru/)
