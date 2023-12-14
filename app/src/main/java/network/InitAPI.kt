@@ -5,6 +5,7 @@ import android.util.Log
 import com.project.north_south.R
 import com.project.north_south.subAlgorithms.ErrorMessage
 import com.project.north_south.subAlgorithms.Storage
+import com.project.north_south.subAlgorithms.calculateSHA256
 import models.ControlRequest
 import models.UserLoginRequest
 import models.UserLoginResponse
@@ -19,7 +20,8 @@ import java.util.Calendar
 import java.text.SimpleDateFormat;
 
 class InitAPI() {
-    private val url: String = "https://spacekot.ru/apishechka/m/"
+//    private val url: String = "https://spacekot.ru/apishechka/m/"
+    private val url: String = "http://194.35.119.103/apishechka/m/"
     private val interceptor = HttpLoggingInterceptor()
     private val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
     private val retrofit = Retrofit.Builder()
@@ -39,13 +41,17 @@ class InitAPI() {
     }
 
     interface SaveDataCallback{
+
         fun onSuccess()
         fun onError(e: String)
         fun onFailure(e: Throwable)
     }
 
     fun loginUser(login: String, password: String, callback: LoginCallback) {
-        api.loginUser(UserLoginRequest(login, password))
+        val protectLogin = calculateSHA256(login)
+        val protectPassword = calculateSHA256(password)
+
+        api.loginUser(UserLoginRequest(protectLogin, protectPassword))
             .enqueue(object : Callback<UserLoginResponse> {
                 override fun onResponse(
                     call: Call<UserLoginResponse>,
@@ -60,35 +66,10 @@ class InitAPI() {
 
                 override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
                     callback.onFailure(t)
+//                    Log.d("MyLog", "login: ${t.message}")
                 }
             })
     }
-
-
-//    fun loginUser (login: String, password: String, context: Context) {
-//        val api = InitAPI(context.getString(R.string.base_url)).getAPI()
-//
-//        val error = ErrorMessage(context)
-//        val storage = Storage(context)
-//
-//        api.loginUser(UserLoginRequest(login, password))
-//            .enqueue(object : Callback<UserLoginResponse> {
-//                override fun onResponse(
-//                    call: Call<UserLoginResponse>,
-//                    response: Response<UserLoginResponse>
-//                ) {
-//                    if (response.isSuccessful) {
-//                        storage.saveUserInfo(login, password, response.body())
-//                    } else {
-//                        error.not_found_error()
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
-//                    error.connection_error()
-//                }
-//            })
-//    }
 
     fun sendData (context: Context, callback: SaveDataCallback) {
         val error = ErrorMessage(context)
