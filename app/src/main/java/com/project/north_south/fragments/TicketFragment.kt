@@ -27,7 +27,7 @@ class TicketFragment : Fragment() {
         ticketViewModel = ViewModelProvider(this)[TicketFragmentViewModel::class.java]
 
         binding.checkButton.setOnClickListener{
-            ticketViewModel.check(requireView(), binding)
+            ticketViewModel.check(requireContext(), requireView(), binding)
         }
 
         return binding.root
