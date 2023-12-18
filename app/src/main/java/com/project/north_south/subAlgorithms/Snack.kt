@@ -27,7 +27,7 @@ class Snack (
                 time_start + context.getString(R.string.ticket_error_message_2_3)+
                 current_trip_number, 7000)
         val textView = snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
         snackbar.show()
     }
 

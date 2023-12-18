@@ -43,7 +43,6 @@ class AccountFragment : Fragment() {
         mainViewModel.startLoginEvent.observe(requireActivity()){
             startActivity(Intent(requireContext(), LoginPage::class.java))
         }
-        // Inflate the layout for this fragment
         return binding.root
     }
 

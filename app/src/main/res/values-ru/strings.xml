@@ -29,7 +29,7 @@
     <string name="end_trip">Закончить поездку</string>
     <string name="txt_reload">Перезагрузить</string>
     <string name="txt_exit">Выйти</string>
-    <string name="txt_bus_flight_number">Номер автобусного рейса</string>
+    <string name="txt_bus_flight_number">Номер поездки</string>
     <string name="txt_seat_number">Номер места</string>
     <string name="txt_ticket_code">Код Билета</string>
     <string name="txt_chek_the_tiket">Проверить билет</string>
@@ -45,4 +45,5 @@
     <string name="ticket_error_message_2.3">" сейчас выбран рейс "</string>
     <string name="ticket_error_message_3">Билет не валиден</string>
     <string name="flight_error">На рейсе заяц</string>
+    <string name="reload_toast">Данные обновлены</string>
 </resources>

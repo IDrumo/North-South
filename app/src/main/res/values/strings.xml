@@ -31,7 +31,7 @@
     <string name="txt_reload">Reload</string>
     <string name="txt_exit">Logout</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="txt_bus_flight_number">Bus flight number</string>
+    <string name="txt_bus_flight_number">Departure number</string>
     <string name="txt_seat_number">Seat number</string>
     <string name="txt_ticket_code">Ticket Code</string>
     <string name="txt_chek_the_tiket">Check the ticket</string>
@@ -52,5 +52,6 @@
     <string name="ticket_error_message_2.3">" is currently selected flight with the number "</string>
     <string name="ticket_error_message_3">The ticket is not valid</string>
     <string name="flight_error">There is a hare on the flight</string>
+    <string name="reload_toast">The data has been updated</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

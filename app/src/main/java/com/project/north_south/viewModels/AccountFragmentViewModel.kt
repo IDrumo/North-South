@@ -21,6 +21,7 @@ class AccountFragmentViewModel(val context: Application) : AndroidViewModel(cont
         val (login, password) = storage.getUserLoginPassword()
         if (password != null && login != null) {
             loginUser(login, password, binding)
+            ErrorMessage(context).reload_success()
         }
     }
 

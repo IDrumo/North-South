@@ -17,6 +17,10 @@ class TripFragmentViewModel(val context: Application) : AndroidViewModel(context
         tripBinding = binding
         val data = storage.getTrip()
 
+        if (data.time_finish == "00:00"){
+            //TODO есть возможность обрабатывать машрут и выводить время окончания
+        }
+
         binding.apply {
             timeStart.text = data.time_start
             timeFinish.text = data.time_finish

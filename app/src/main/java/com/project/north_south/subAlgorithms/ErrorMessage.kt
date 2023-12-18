@@ -44,4 +44,12 @@ class ErrorMessage(val context: Context) {
             Toast.LENGTH_SHORT
         ).show()
     }
+
+    fun reload_success(){
+        Toast.makeText(
+            context,
+            R.string.reload_toast,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 }

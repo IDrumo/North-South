@@ -63,7 +63,8 @@
             android:ems="10"
             android:gravity="center"
             android:hint="@string/txt_ticket_code"
-            android:inputType="text|textCapCharacters" />
+            android:inputType="text|textCapCharacters"
+            android:maxLength="6" />
 
         <Button
             android:id="@+id/checkButton"
