@@ -20,6 +20,14 @@ class Snack (
         snackbar.show()
     }
 
+    fun ticket_already_used(){
+        doAnimate(view, R.id.cancel_anim)
+        val snackbar = Snackbar.make(view, context.getString(R.string.ticket_already_used_error_message), 7000)
+        val textView = snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+        snackbar.show()
+    }
+
     fun an_outdated_ticket(trip_number: Long, time_start: String, current_trip_number: Long){
         doAnimate(view, R.id.cancel_anim)
         val snackbar = Snackbar.make(view, context.getString(R.string.ticket_error_message_2_1) +

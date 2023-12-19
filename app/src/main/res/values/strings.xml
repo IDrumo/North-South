@@ -53,5 +53,6 @@
     <string name="ticket_error_message_3">The ticket is not valid</string>
     <string name="flight_error">There is a hare on the flight</string>
     <string name="reload_toast">The data has been updated</string>
+    <string name="ticket_already_used_error_message">The ticket has already been used.</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -31,6 +31,10 @@ class TicketFragmentViewModel: ViewModel() {
 
         if (code_number == calculateSHA256("${ticket_id} ${flight_number} ${place_number}").substring(0,6)){
             if (flight_number.toLong() == storage.getTrip().id){
+                if (ticket_id.toLong() in storage.getPassengers()){
+                    snack.ticket_already_used()
+                    return
+                }
                 ticketDate.value = ticket_id.toLong()
                 return
             }

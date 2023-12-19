@@ -59,6 +59,10 @@ class ScannerFragmentViewModel(context: Application): AndroidViewModel(context) 
                 ticket.code_number.lowercase(Locale.ROOT) && !data.isNullOrEmpty()
             ) {
                 if (ticket.flight_number == storage.getTrip().id) {
+                    if (ticket.ticket_id in storage.getPassengers()){
+                        snack.ticket_already_used()
+                        return
+                    }
                     ticketDate.value = ticket.ticket_id
                     return
                 }

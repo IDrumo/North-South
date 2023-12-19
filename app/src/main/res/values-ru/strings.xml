@@ -46,4 +46,5 @@
     <string name="ticket_error_message_3">Билет не валиден</string>
     <string name="flight_error">На рейсе заяц</string>
     <string name="reload_toast">Данные обновлены</string>
+    <string name="ticket_already_used_error_message">Билет уже был использован</string>
 </resources>
