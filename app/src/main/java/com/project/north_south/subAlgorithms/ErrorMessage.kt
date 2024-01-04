@@ -13,6 +13,14 @@ class ErrorMessage(val context: Context) {
             Toast.LENGTH_LONG
         ).show()
     }
+
+    fun cancel_started_trip_error(){
+        Toast.makeText(
+            context,
+            context.getString(R.string.cancel_started_trip_error_message),
+            Toast.LENGTH_LONG
+        ).show()
+    }
     fun connection_error() {
         Toast.makeText(
             context,

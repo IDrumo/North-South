@@ -65,4 +65,11 @@
             android:textColor="@color/default_btn_color" />
     </LinearLayout>
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/exitConfirmFragmentPlace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20sp"
+        android:layout_marginTop="50sp" />
+
 </FrameLayout>

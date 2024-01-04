@@ -20,4 +20,7 @@ interface ApiService {
     @POST("Control")
     fun passengerControl(@Body data: ControlRequest): Call<Void>
 
+    @POST("login")
+    fun refreshToken(): Call<UserLoginResponse>
+
 }

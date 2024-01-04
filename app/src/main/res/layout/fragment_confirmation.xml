@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.ConfirmationFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        style="@style/popup_window"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/popup_window"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/confirmationMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginEnd="20sp"
+            android:background="@drawable/text_field_background"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:paddingLeft="8sp"
+            android:paddingRight="8sp"
+            android:text="@string/send_confirmation_txt"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/confirm"
+            android:layout_width="match_parent"
+            android:layout_height="66sp"
+            android:layout_marginStart="20sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginEnd="20sp"
+            android:backgroundTint="@color/dust_green"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/confirm"
+            android:textColor="@color/default_btn_text_color"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="66sp"
+            android:layout_marginStart="20sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginEnd="20sp"
+            android:layout_marginBottom="15sp"
+            android:backgroundTint="@color/dust_red"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/cancel"
+            android:textColor="@color/default_btn_text_color"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+</FrameLayout>

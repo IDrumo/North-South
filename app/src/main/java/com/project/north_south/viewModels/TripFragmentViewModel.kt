@@ -1,10 +1,12 @@
 package com.project.north_south.viewModels
 
 import android.app.Application
-import android.util.Log
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.AndroidViewModel
 import com.project.north_south.R
 import com.project.north_south.databinding.FragmentTripBinding
+import com.project.north_south.fragments.ConfirmationFragment
+import com.project.north_south.fragments.RoadmapFragment
 import com.project.north_south.subAlgorithms.ErrorMessage
 import com.project.north_south.subAlgorithms.Storage
 import network.InitAPI
@@ -12,6 +14,7 @@ import network.InitAPI
 class TripFragmentViewModel(val context: Application) : AndroidViewModel(context) {
 
     private val storage = Storage(context)
+    private val error = ErrorMessage(context)
     private lateinit var tripBinding: FragmentTripBinding
     fun initFields(binding: FragmentTripBinding) {
         tripBinding = binding
@@ -60,14 +63,19 @@ class TripFragmentViewModel(val context: Application) : AndroidViewModel(context
         }
     }
 
-    fun startStop(stopwatchViewModel: StopwatchViewModel) {
+    fun startStop(fragmentManager: FragmentManager, stopwatchViewModel: StopwatchViewModel) {
         if (storage.tripStarted()) {
-            storage.switchTripState()
-            storage.addTime((storage.getTrip().station_index), stopwatchViewModel.getCurrentTimeLong())
-            stopwatchViewModel.stop()
-            shareInfo()
-            tripBinding.startStopButton.setBackgroundColor(context.getColor(R.color.dust_green))
-            tripBinding.startStopButton.text = context.getString(R.string.start_trip)
+            val confirmationFragment = ConfirmationFragment.newInstance(context.getString(R.string.send_confirmation_txt)){
+                storage.switchTripState()
+                storage.addTime((storage.getTrip().station_index), stopwatchViewModel.getCurrentTimeLong())
+                stopwatchViewModel.stop()
+                shareInfo()
+                tripBinding.startStopButton.setBackgroundColor(context.getColor(R.color.dust_green))
+                tripBinding.startStopButton.text = context.getString(R.string.start_trip)
+            }
+            fragmentManager.beginTransaction()
+                .add(R.id.sendConfirmationFragmentPlace, confirmationFragment)
+                .commit()
         } else {
             storage.switchTripState()
             stopwatchViewModel.start()
@@ -77,7 +85,7 @@ class TripFragmentViewModel(val context: Application) : AndroidViewModel(context
     }
 
     fun shareInfo() {
-        val error = ErrorMessage(context)
+
         InitAPI().sendData(context, object : InitAPI.SaveDataCallback{
             override fun onSuccess() {
                 error.save_success()
@@ -94,6 +102,17 @@ class TripFragmentViewModel(val context: Application) : AndroidViewModel(context
             }
         })
         storage.clearTripData()
+    }
+
+    fun cancelTrip(parentFragmentManager: FragmentManager) {
+        if (storage.tripStarted()){
+            error.cancel_started_trip_error()
+        }else {
+            clearShare()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_place, RoadmapFragment.newInstance())
+                .commit()
+        }
     }
 
     fun clearShare() {

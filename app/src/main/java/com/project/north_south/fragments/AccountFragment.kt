@@ -1,18 +1,15 @@
 package com.project.north_south.fragments
 
-import NotificationScheduler
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.project.north_south.viewModels.AccountFragmentViewModel
 import com.project.north_south.activity.LoginPage
 import com.project.north_south.databinding.FragmentAccountBinding
-import models.FullUserInfo
 
 
 class AccountFragment : Fragment() {
@@ -37,8 +34,8 @@ class AccountFragment : Fragment() {
             mainViewModel.reloadUser(binding)
         }
         binding.exitButton.setOnClickListener{
-            NotificationScheduler(requireContext()).cancelNotifications()
-            mainViewModel.exit()
+
+            mainViewModel.exit(childFragmentManager, requireContext())
         }
         mainViewModel.startLoginEvent.observe(requireActivity()){
             startActivity(Intent(requireContext(), LoginPage::class.java))

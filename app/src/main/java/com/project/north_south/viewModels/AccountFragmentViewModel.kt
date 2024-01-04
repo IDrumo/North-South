@@ -1,10 +1,14 @@
 package com.project.north_south.viewModels
 
+import NotificationScheduler
 import android.app.Application
+import android.content.Context
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.project.north_south.R
 import com.project.north_south.databinding.FragmentAccountBinding
+import com.project.north_south.fragments.ConfirmationFragment
 import com.project.north_south.subAlgorithms.ErrorMessage
 import com.project.north_south.subAlgorithms.Storage
 import models.UserLoginResponse
@@ -56,8 +60,20 @@ class AccountFragmentViewModel(val context: Application) : AndroidViewModel(cont
 
     }
 
-    fun exit() {
-        storage.clearAll()
-        startLoginEvent.value = StartLoginEvent()
+    fun exit(childFragmentManager: FragmentManager, requireContext: Context) {
+        if (storage.tripStarted()) {
+            val fragment =
+                ConfirmationFragment.newInstance(context.getString(R.string.exit_confirm_txt)) {
+                    NotificationScheduler(requireContext).cancelNotifications()
+                    storage.clearAll()
+                    startLoginEvent.value = StartLoginEvent()
+                }
+            childFragmentManager.beginTransaction().add(R.id.exitConfirmFragmentPlace, fragment)
+                .commit()
+        }else{
+            NotificationScheduler(requireContext).cancelNotifications()
+            storage.clearAll()
+            startLoginEvent.value = StartLoginEvent()
+        }
     }
 }

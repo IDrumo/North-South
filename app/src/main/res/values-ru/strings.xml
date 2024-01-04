@@ -47,4 +47,8 @@
     <string name="flight_error">На рейсе заяц</string>
     <string name="reload_toast">Данные обновлены</string>
     <string name="ticket_already_used_error_message">Билет уже был использован</string>
+    <string name="send_confirmation_txt">Вы точно хотите отправить данные о завершении поездки? Вернуть их будет невозможно, но вы сможете начать поездку заново.</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="exit_confirm_txt">Вы уверены, что хотите выйти из аккаунта, пока у вас есть незавершенный рейс? Все данные о нем будут удалены, без возможности их восстановить.</string>
+    <string name="cancel_started_trip_error_message">Завершите поездку</string>
 </resources>

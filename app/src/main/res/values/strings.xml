@@ -54,5 +54,9 @@
     <string name="flight_error">There is a hare on the flight</string>
     <string name="reload_toast">The data has been updated</string>
     <string name="ticket_already_used_error_message">The ticket has already been used.</string>
+    <string name="send_confirmation_txt">Are you sure you want to send data about the completion of the trip? It will be impossible to return them, but you can start the trip again.</string>
+    <string name="confirm">Confirm</string>
+    <string name="exit_confirm_txt">Are you sure you want to log out of your account while you have an unfinished flight? All data about him will be deleted, without the possibility to restore them.</string>
+    <string name="cancel_started_trip_error_message">Complete the trip</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
