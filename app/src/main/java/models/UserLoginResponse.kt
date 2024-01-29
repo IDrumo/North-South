@@ -5,6 +5,5 @@ data class UserLoginResponse(
     val last_name: String,
     val patronymic: String,
     val bus_code: Long,
-    val token: String,
-    val daily_schedule: ArrayList<ScheduleResponse>
+    val token: String
 )

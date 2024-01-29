@@ -14,7 +14,7 @@ class FullUserInfo {
 
     constructor()
 
-    constructor(login : String, password : String, user : UserLoginResponse){
+    constructor(login : String, password : String, user : GetScheduleResponse){
         this.login = login
         this.password = password
         token = user.token

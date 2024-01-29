@@ -5,22 +5,32 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import models.FullUserInfo
+import models.GetScheduleResponse
 import models.ScheduleResponse
 import models.TripItem
-import models.UserLoginResponse
 import java.lang.reflect.Type
 
 class Storage(context: Context) {
-    private val passengers: SharedPreferences = context.getSharedPreferences("passenger_control", Context.MODE_PRIVATE)
-    private val userData: SharedPreferences = context.getSharedPreferences("user_data", Context.MODE_PRIVATE)
-    private val trip: SharedPreferences = context.getSharedPreferences("trip_info", Context.MODE_PRIVATE)
-    private val tripTime: SharedPreferences = context.getSharedPreferences("trip_time_info", Context.MODE_PRIVATE)
-    private val tripStarted: SharedPreferences = context.getSharedPreferences("trip_started_info", Context.MODE_PRIVATE)
-    private val fullRoadmap: SharedPreferences = context.getSharedPreferences("roadmap_info", Context.MODE_PRIVATE)
-    private val roadmap: SharedPreferences = context.getSharedPreferences("roadmap", Context.MODE_PRIVATE)
-    private val schedule: SharedPreferences = context.getSharedPreferences("schedule", Context.MODE_PRIVATE)
+    private val passengers: SharedPreferences =
+        context.getSharedPreferences("passenger_control", Context.MODE_PRIVATE)
+    private val userData: SharedPreferences =
+        context.getSharedPreferences("user_data", Context.MODE_PRIVATE)
+    private val token: SharedPreferences =
+        context.getSharedPreferences("token", Context.MODE_PRIVATE)
+    private val trip: SharedPreferences =
+        context.getSharedPreferences("trip_info", Context.MODE_PRIVATE)
+    private val tripTime: SharedPreferences =
+        context.getSharedPreferences("trip_time_info", Context.MODE_PRIVATE)
+    private val tripStarted: SharedPreferences =
+        context.getSharedPreferences("trip_started_info", Context.MODE_PRIVATE)
+    private val fullRoadmap: SharedPreferences =
+        context.getSharedPreferences("roadmap_info", Context.MODE_PRIVATE)
+    private val roadmap: SharedPreferences =
+        context.getSharedPreferences("roadmap", Context.MODE_PRIVATE)
+    private val schedule: SharedPreferences =
+        context.getSharedPreferences("schedule", Context.MODE_PRIVATE)
 
-    fun clearAll(){
+    fun clearAll() {
         passengers.edit().clear().apply()
         userData.edit().clear().apply()
         trip.edit().clear().apply()
@@ -28,31 +38,46 @@ class Storage(context: Context) {
         tripStarted.edit().clear().apply()
         fullRoadmap.edit().clear().apply()
         roadmap.edit().clear().apply()
+        token.edit().clear().apply()
     }
 
-    fun clearTripData(){
+    fun clearTripData() {
         tripStarted.edit().clear().apply()
         tripTime.edit().clear().apply()
         passengers.edit().clear().apply()
     }
-    fun clearTripInfo(){
+
+    fun clearTripInfo() {
         trip.edit().clear().apply()
         tripStarted.edit().clear().apply()
         tripTime.edit().clear().apply()
         passengers.edit().clear().apply()
     }
 
-    fun clearCurrentData(){
+    fun clearCurrentData() {
         clearTripInfo()
         roadmap.edit().clear().apply()
         fullRoadmap.edit().clear().apply()
     }
 
-    fun clearUserData(){
+    fun clearUserData() {
         userData.edit().clear().apply()
+        token.edit().clear().apply()
     }
 
-    fun setTrip(trip: TripItem){
+    fun clearToken() {
+        token.edit().clear().apply()
+    }
+
+    fun setToken(newToken: String) {
+        token.edit().putString("token", newToken).apply()
+    }
+
+    fun getToken(): String? {
+        return token.getString("token", "token")
+    }
+
+    fun setTrip(trip: TripItem) {
         val gson = Gson()
         val json = gson.toJson(trip)
         this.trip.edit()
@@ -65,7 +90,7 @@ class Storage(context: Context) {
         return trip.getBoolean("sub_frame_part_active", false)
     }
 
-    fun getNumberOfPlaces(): Long{
+    fun getNumberOfPlaces(): Long {
         val json = trip.getString("current_trip", null)
         val gson = Gson()
         val trip = if (json != null)
@@ -87,12 +112,12 @@ class Storage(context: Context) {
         return tripStarted.getBoolean("trip_started", false)
     }
 
-    fun switchTripState(){
+    fun switchTripState() {
         if (tripStarted()) tripStarted.edit().putBoolean("trip_started", false).apply()
         else tripStarted.edit().putBoolean("trip_started", true).apply()
     }
 
-    fun addTime(index:Int, time:Long){
+    fun addTime(index: Int, time: Long) {
         val gson = Gson()
         val json = tripTime.getString("data", null)
         val type: Type = object : TypeToken<ArrayList<Long?>?>() {}.type
@@ -108,7 +133,7 @@ class Storage(context: Context) {
         tripTime.edit().putString("data", gson.toJson(timeData)).apply()
     }
 
-    fun rollBackTime(){
+    fun rollBackTime() {
 
     }
 
@@ -126,6 +151,7 @@ class Storage(context: Context) {
         val tripData = gson.fromJson(json, TripItem::class.java)
         return tripData.stations.size
     }
+
     fun nextStation(): Triple<Int, String, String> {
         val gson = Gson()
         var json = trip.getString("current_trip", null)
@@ -140,7 +166,7 @@ class Storage(context: Context) {
             json = gson.toJson(tripData)
             trip.edit().putString("current_trip", json).apply()
             return Triple(index, firstValue, secondValue)
-        }else{
+        } else {
             val index = tripData.station_index
 
             val firstValue = tripData.stations[tripData.station_index]
@@ -165,7 +191,7 @@ class Storage(context: Context) {
             trip.edit().putString("current_trip", json).apply()
 
             return Triple(index, firstValue, secondValue)
-        }else{
+        } else {
             val index = data.station_index
             val firstValue = data.stations[data.station_index]
             val secondValue = data.stations[data.station_index + 1]
@@ -175,7 +201,8 @@ class Storage(context: Context) {
             return Triple(index, firstValue, secondValue)
         }
     }
-    fun saveUserInfo(login : String, password : String, user: UserLoginResponse?){
+
+    fun saveUserInfo(login: String, password: String, user: GetScheduleResponse?) {
         userData.edit()
             .putBoolean("active", true)
             .putString("login", login)
@@ -187,9 +214,11 @@ class Storage(context: Context) {
             .putString("bus_code", user?.bus_code.toString())
             .apply()
 
-            if (user != null) {
-                this.saveRoadmap(user.daily_schedule)
-            }
+        setToken(user?.token.toString())
+
+        if (user != null) {
+            this.saveRoadmap(user.daily_schedule)
+        }
     }
 
     fun getUser(): FullUserInfo {
@@ -213,6 +242,7 @@ class Storage(context: Context) {
     fun getUserStatus(): Boolean {
         return userData.getBoolean("active", false)
     }
+
     fun savePassengerInfo(ticket: Long) {
         // Чтение списка из SharedPreferences
         val savedList = getPassengers()
@@ -242,37 +272,39 @@ class Storage(context: Context) {
         return savedList
     }
 
-    fun saveRoadmap(schedules: ArrayList<ScheduleResponse>){
+    fun saveRoadmap(schedules: ArrayList<ScheduleResponse>) {
         val gson = Gson()
         var json = gson.toJson(schedules)
         fullRoadmap.edit().putString("full_roadmap", json).apply()
 
         val trips = ArrayList<TripItem>()
-        schedules.forEach{schedule ->
+        schedules.forEach { schedule ->
             trips.add(
                 TripItem(
-                schedule.id,
-                schedule.trip.departure_time,
-                "00:00",
-                schedule.trip.stations,
-                schedule.trip.bus.number_of_sits)
+                    schedule.id,
+                    schedule.trip.departure_time,
+                    "00:00",
+                    schedule.trip.stations,
+                    schedule.trip.bus.number_of_sits
+                )
             )
         }
         json = gson.toJson(trips)
         roadmap.edit().putString("roadmap", json).apply()
     }
 
-    fun getRoadmapInfo(): ArrayList<ScheduleResponse>{
+    fun getRoadmapInfo(): ArrayList<ScheduleResponse> {
         val gson = Gson()
         val jsonList = fullRoadmap.getString("full_roadmap", "")
         val type: Type = object : TypeToken<ArrayList<ScheduleResponse?>?>() {}.type
         return gson.fromJson(jsonList, type)
     }
 
-    fun saveSchedule(){
+    fun saveSchedule() {
 
     }
-    fun getSchedule(){
+
+    fun getSchedule() {
 
     }
 
@@ -283,7 +315,7 @@ class Storage(context: Context) {
         return gson.fromJson(jsonList, type)
     }
 
-    fun getControl(): Pair<ArrayList<Long>, ArrayList<Long>>{
+    fun getControl(): Pair<ArrayList<Long>, ArrayList<Long>> {
         val tickets = getPassengers()
         val time = getTimeResult()
         return Pair(tickets, time)

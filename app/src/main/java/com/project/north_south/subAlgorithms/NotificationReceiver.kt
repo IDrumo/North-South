@@ -7,11 +7,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.project.north_south.R
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 
 class NotificationReceiver : BroadcastReceiver() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onReceive(context: Context, intent: Intent) {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -25,7 +29,12 @@ class NotificationReceiver : BroadcastReceiver() {
 
         // Получение времени ближайшего рейса из intent или другого источника данных
         val nextFlightTime = intent.getStringExtra("next_flight_time") // Время ближайшего рейса
-        Log.d("MyLog", "Мяу из $nextFlightTime")
+//        Log.d("MyLog", "Мяу из $nextFlightTime")
+
+        val flightTime = LocalTime.parse(nextFlightTime, DateTimeFormatter.ofPattern("HH:mm"))
+        if (LocalTime.now().isAfter(flightTime)) {
+            return // Если время рейса уже прошло, прекращаем выполнение метода
+        }
 
         // Создание уведомления
         val notificationBuilder = NotificationCompat.Builder(context, "my_channel_id")

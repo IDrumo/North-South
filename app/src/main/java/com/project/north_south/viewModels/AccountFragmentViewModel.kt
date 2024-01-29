@@ -11,7 +11,7 @@ import com.project.north_south.databinding.FragmentAccountBinding
 import com.project.north_south.fragments.ConfirmationFragment
 import com.project.north_south.subAlgorithms.ErrorMessage
 import com.project.north_south.subAlgorithms.Storage
-import models.UserLoginResponse
+import models.GetScheduleResponse
 import network.InitAPI
 
 class AccountFragmentViewModel(val context: Application) : AndroidViewModel(context) {
@@ -41,7 +41,7 @@ class AccountFragmentViewModel(val context: Application) : AndroidViewModel(cont
 
     private fun loginUser(login: String, password: String, binding: FragmentAccountBinding) {
         apiService.loginUser(login, password, object : InitAPI.LoginCallback {
-            override fun onSuccess(response: UserLoginResponse) {
+            override fun onSuccess(response: GetScheduleResponse) {
 
                 storage.saveUserInfo(login, password, response)
                 if (storage.getUserStatus()) {
