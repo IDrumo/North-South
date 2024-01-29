@@ -31,7 +31,7 @@ class NotificationReceiver : BroadcastReceiver() {
         val nextFlightTime = intent.getStringExtra("next_flight_time") // Время ближайшего рейса
 //        Log.d("MyLog", "Мяу из $nextFlightTime")
 
-        val flightTime = LocalTime.parse(nextFlightTime, DateTimeFormatter.ofPattern("HH:mm"))
+        val flightTime = LocalTime.parse(nextFlightTime, DateTimeFormatter.ofPattern("HH:mm:ss"))
         if (LocalTime.now().isAfter(flightTime)) {
             return // Если время рейса уже прошло, прекращаем выполнение метода
         }
